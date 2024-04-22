@@ -1,0 +1,5 @@
+#
+kind/storage/
+!kind/storage/.gitignore
+victoriametrics/operator/base/bundle_crd.zip
+victoriametrics/operator/base/release/

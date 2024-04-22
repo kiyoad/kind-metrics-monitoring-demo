@@ -1,0 +1,207 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: worker-pv11
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /pv1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - kind-worker
+---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: worker-pv12
+#spec:
+#  capacity:
+#    storage: 10Gi
+#  volumeMode: Filesystem
+#  accessModes:
+#  - ReadWriteOnce
+#  persistentVolumeReclaimPolicy: Retain
+#  storageClassName: local-storage
+#  local:
+#    path: /pv2
+#  nodeAffinity:
+#    required:
+#      nodeSelectorTerms:
+#      - matchExpressions:
+#        - key: kubernetes.io/hostname
+#          operator: In
+#          values:
+#          - kind-worker
+#---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: worker-pv13
+#spec:
+#  capacity:
+#    storage: 10Gi
+#  volumeMode: Filesystem
+#  accessModes:
+#  - ReadWriteOnce
+#  persistentVolumeReclaimPolicy: Retain
+#  storageClassName: local-storage
+#  local:
+#    path: /pv3
+#  nodeAffinity:
+#    required:
+#      nodeSelectorTerms:
+#      - matchExpressions:
+#        - key: kubernetes.io/hostname
+#          operator: In
+#          values:
+#          - kind-worker
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: worker-pv21
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /pv1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - kind-worker2
+---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: worker-pv22
+#spec:
+#  capacity:
+#    storage: 10Gi
+#  volumeMode: Filesystem
+#  accessModes:
+#  - ReadWriteOnce
+#  persistentVolumeReclaimPolicy: Retain
+#  storageClassName: local-storage
+#  local:
+#    path: /pv2
+#  nodeAffinity:
+#    required:
+#      nodeSelectorTerms:
+#      - matchExpressions:
+#        - key: kubernetes.io/hostname
+#          operator: In
+#          values:
+#          - kind-worker2
+#---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: worker-pv23
+#spec:
+#  capacity:
+#    storage: 10Gi
+#  volumeMode: Filesystem
+#  accessModes:
+#  - ReadWriteOnce
+#  persistentVolumeReclaimPolicy: Retain
+#  storageClassName: local-storage
+#  local:
+#    path: /pv3
+#  nodeAffinity:
+#    required:
+#      nodeSelectorTerms:
+#      - matchExpressions:
+#        - key: kubernetes.io/hostname
+#          operator: In
+#          values:
+#          - kind-worker2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: worker-pv31
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /pv1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - kind-worker3
+---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: worker-pv32
+#spec:
+#  capacity:
+#    storage: 10Gi
+#  volumeMode: Filesystem
+#  accessModes:
+#  - ReadWriteOnce
+#  persistentVolumeReclaimPolicy: Retain
+#  storageClassName: local-storage
+#  local:
+#    path: /pv2
+#  nodeAffinity:
+#    required:
+#      nodeSelectorTerms:
+#      - matchExpressions:
+#        - key: kubernetes.io/hostname
+#          operator: In
+#          values:
+#          - kind-worker3
+#---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: worker-pv33
+#spec:
+#  capacity:
+#    storage: 10Gi
+#  volumeMode: Filesystem
+#  accessModes:
+#  - ReadWriteOnce
+#  persistentVolumeReclaimPolicy: Retain
+#  storageClassName: local-storage
+#  local:
+#    path: /pv3
+#  nodeAffinity:
+#    required:
+#      nodeSelectorTerms:
+#      - matchExpressions:
+#        - key: kubernetes.io/hostname
+#          operator: In
+#          values:
+#          - kind-worker3
+#

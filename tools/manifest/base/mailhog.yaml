@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/instance: my-mailhog
+  name: my-mailhog-server
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/name: mailhog
+      app.kubernetes.io/instance: my-mailhog
+  replicas: 1
+  strategy:
+    type: Recreate
+    rollingUpdate: null
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: server
+        app.kubernetes.io/name: mailhog
+        app.kubernetes.io/instance: my-mailhog
+    spec:
+      containers:
+        - name: mailhog-server
+          image: "mailhog/mailhog:v1.0.1"
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 8025
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/instance: my-mailhog
+  name: my-mailhog-nodeport
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 8025
+      protocol: TCP
+      targetPort: 8025
+      nodePort: 30025
+  selector:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/instance: my-mailhog
+  type: "NodePort"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/instance: my-mailhog
+  name: my-mailhog-smtp
+  namespace: default
+spec:
+  ports:
+    - name: smtp
+      port: 1025
+      protocol: TCP
+      targetPort: 1025
+  selector:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/instance: my-mailhog
+
+---
+# my-mailhog-smtp.default.svc.cluster.local

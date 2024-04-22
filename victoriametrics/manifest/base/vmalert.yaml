@@ -1,0 +1,89 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlertmanager
+metadata:
+  name: example
+  namespace: default
+  labels:
+    app.kubernetes.io/name: alertmanager
+spec:
+  image:
+    repository: prom/alertmanager
+    tag: v0.27.0
+    pullPolicy: IfNotPresent
+  dnsConfig:
+    searches:
+      - default.svc.cluster.local
+  replicaCount: 3
+  configSecret: vmalertmanager-example-alertmanager
+  selectAllByDefault: true
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: vmalertmanager-nodeport
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 9093
+      nodePort: 30093
+  selector:
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/name: vmalertmanager
+    app.kubernetes.io/instance: example
+  sessionAffinity: None
+  type: "NodePort"
+
+---
+
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlert
+metadata:
+  name: example-ha
+  namespace: default
+  labels:
+    app.kubernetes.io/name: vmalert
+spec:
+  image:
+    repository: victoriametrics/vmalert
+    tag: v1.93.13
+    pullPolicy: IfNotPresent
+  replicaCount: 2
+  evaluationInterval: "10s"
+  selectAllByDefault: true
+  datasource:
+    url: http://vmselect-example-vmcluster-persistent.default.svc.cluster.local:8481/select/0/prometheus
+  notifiers:
+    - url: http://vmalertmanager-example-0.vmalertmanager-example:9093
+    - url: http://vmalertmanager-example-1.vmalertmanager-example:9093
+    - url: http://vmalertmanager-example-2.vmalertmanager-example:9093
+  remoteWrite:
+    url: http://vminsert-example-vmcluster-persistent.default.svc.cluster.local:8480/insert/0/prometheus
+  remoteRead:
+    url: http://vmselect-example-vmcluster-persistent.default.svc.cluster.local:8481/select/0/prometheus
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: vmalert-nodeport
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+      nodePort: 30080
+  selector:
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/name: vmalert
+    app.kubernetes.io/instance: example-ha
+  sessionAffinity: None
+  type: "NodePort"
+

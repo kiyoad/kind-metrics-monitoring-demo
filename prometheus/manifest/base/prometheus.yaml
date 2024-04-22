@@ -1,0 +1,332 @@
+---
+# Source: prometheus/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/version: v2.45.0
+    helm.sh/chart: prometheus-23.1.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: prometheus
+  name: my-prometheus-server
+  namespace: default
+  annotations:
+    {}
+---
+# Source: prometheus/templates/cm.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/version: v2.45.0
+    helm.sh/chart: prometheus-23.1.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: prometheus
+  name: my-prometheus-server
+  namespace: default
+data:
+  allow-snippet-annotations: "false"
+  alerting_rules.yml: |
+    {}
+  alerts: |
+    {}
+  prometheus.yml: |
+    global:
+      evaluation_interval: 1m
+      scrape_interval: 1m
+      scrape_timeout: 10s
+    remote_write:
+      - url: http://vminsert-example-vmcluster-persistent.default.svc.cluster.local:8480/insert/0/prometheus
+    rule_files:
+    - /etc/config/recording_rules.yml
+    - /etc/config/alerting_rules.yml
+    - /etc/config/rules
+    - /etc/config/alerts
+    scrape_configs:
+    - job_name: prometheus
+      static_configs:
+      - targets:
+        - localhost:9090
+    - job_name: 'kubelet'
+      kubernetes_sd_configs:
+      - role: node
+      scheme: https
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        insecure_skip_verify: true
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    - job_name: 'cadvisor'
+      kubernetes_sd_configs:
+      - role: node
+      metrics_path: /metrics/cadvisor
+      scheme: https
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        insecure_skip_verify: true
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    - job_name: 'k8apiserver'
+      kubernetes_sd_configs:
+      - role: endpoints
+      relabel_configs:
+      - source_labels:
+          - __meta_kubernetes_namespace
+          - __meta_kubernetes_service_name
+          - __meta_kubernetes_endpoint_port_name
+        regex: default;kubernetes;https
+        action: keep
+      scheme: https
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        #insecure_skip_verify: true
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    - job_name: 'k8services'
+      kubernetes_sd_configs:
+      - role: endpoints
+      relabel_configs:
+      - source_labels:
+          - __meta_kubernetes_namespace
+          - __meta_kubernetes_service_name
+        regex: default;kubernetes
+        action: drop
+      - source_labels:
+          - __meta_kubernetes_namespace
+        regex: default
+        action: keep
+      - source_labels:
+          - __meta_kubernetes_service_name
+        target_label: job
+      - source_labels:
+          - __address__
+        regex: (.+):8400
+        action: drop
+      - source_labels:
+          - __address__
+        regex: (.+):8401
+        action: drop
+      - source_labels:
+          - __address__
+        regex: (.+):9094
+        action: drop
+    - job_name: 'k8pods'
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - source_labels:
+          - __meta_kubernetes_pod_container_port_name
+        regex: metrics
+        action: keep
+      - source_labels:
+          - __meta_kubernetes_pod_container_name
+        target_label: job
+      scrape_interval: 5m
+      scrape_timeout: 30s
+  recording_rules.yml: |
+    {}
+  rules: |
+    {}
+---
+# Source: prometheus/templates/clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/version: v2.45.0
+    helm.sh/chart: prometheus-23.1.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: prometheus
+  name: my-prometheus-server
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+      - nodes/proxy
+      - nodes/metrics
+      - services
+      - endpoints
+      - pods
+      - ingresses
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "extensions"
+      - "networking.k8s.io"
+    resources:
+      - ingresses/status
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+  - nonResourceURLs:
+      - "/metrics"
+    verbs:
+      - get
+---
+# Source: prometheus/templates/clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/version: v2.45.0
+    helm.sh/chart: prometheus-23.1.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: prometheus
+  name: my-prometheus-server
+subjects:
+  - kind: ServiceAccount
+    name: my-prometheus-server
+    namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: my-prometheus-server
+---
+# Source: prometheus/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/version: v2.45.0
+    helm.sh/chart: prometheus-23.1.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: prometheus
+  name: my-prometheus-server
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 9090
+      nodePort: 30090
+  selector:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/instance: my-prometheus
+  sessionAffinity: None
+  type: "NodePort"
+---
+# Source: prometheus/templates/deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/version: v2.45.0
+    helm.sh/chart: prometheus-23.1.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: prometheus
+  name: my-prometheus-server
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/instance: my-prometheus
+  replicas: 2
+  strategy:
+    type: Recreate
+    rollingUpdate: null
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: server
+        app.kubernetes.io/name: prometheus
+        app.kubernetes.io/instance: my-prometheus
+        app.kubernetes.io/version: v2.45.0
+        helm.sh/chart: prometheus-23.1.0
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/part-of: prometheus
+    spec:
+      enableServiceLinks: true
+      serviceAccountName: my-prometheus-server
+      containers:
+        - name: prometheus-server-configmap-reload
+          image: "quay.io/prometheus-operator/prometheus-config-reloader:v0.66.0"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - --watched-dir=/etc/config
+            - --reload-url=http://127.0.0.1:9090/-/reload
+          resources:
+            {}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+              readOnly: true
+
+        - name: prometheus-server
+          image: "quay.io/prometheus/prometheus:v2.45.3"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - --storage.tsdb.retention.time=15d
+            - --config.file=/etc/config/prometheus.yml
+            - --storage.tsdb.path=/data
+            - --web.console.libraries=/etc/prometheus/console_libraries
+            - --web.console.templates=/etc/prometheus/consoles
+            - --web.enable-lifecycle
+          ports:
+            - containerPort: 9090
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: 9090
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            timeoutSeconds: 4
+            failureThreshold: 3
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: 9090
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+          resources:
+            {}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+            - name: storage-volume
+              mountPath: /data
+              subPath: ""
+      dnsPolicy: ClusterFirst
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+      terminationGracePeriodSeconds: 300
+      volumes:
+        - name: config-volume
+          configMap:
+            name: my-prometheus-server
+        - name: storage-volume
+          emptyDir:
+            {}

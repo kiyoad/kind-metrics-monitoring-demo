@@ -1,0 +1,37 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base
+
+namespace: monitoring
+
+patches:
+  - patch: |-
+      apiVersion: operator.victoriametrics.com/v1beta1
+      kind: VMAlertmanager
+      metadata:
+        name: not-used
+      spec:
+        dnsConfig:
+          searches:
+            - monitoring.svc.cluster.local
+    target:
+      labelSelector: "app.kubernetes.io/name=alertmanager"
+
+patches:
+  - patch: |-
+      apiVersion: operator.victoriametrics.com/v1beta1
+      kind: VMAlert
+      metadata:
+        name: example-ha
+        namespace: default
+      spec:
+        datasource:
+          url: http://vmselect-example-vmcluster-persistent.monitoring.svc.cluster.local:8481/select/0/prometheus
+        remoteWrite:
+          url: http://vminsert-example-vmcluster-persistent.monitoring.svc.cluster.local:8480/insert/0/prometheus
+        remoteRead:
+          url: http://vmselect-example-vmcluster-persistent.monitoring.svc.cluster.local:8481/select/0/prometheus
+    target:
+      labelSelector: "app.kubernetes.io/name=vmalert"
+
