@@ -9,9 +9,9 @@ metadata:
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: "2.9.2"
-  name: my-prometheus-kube-state-metrics
+  name: kube-state-metrics-demo
   namespace: default
 ---
 # Source: prometheus/charts/kube-state-metrics/templates/role.yaml
@@ -24,9 +24,9 @@ metadata:
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: "2.9.2"
-  name: my-prometheus-kube-state-metrics
+  name: kube-state-metrics-demo
 rules:
 
 - apiGroups: ["certificates.k8s.io"]
@@ -179,23 +179,23 @@ metadata:
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: "2.9.2"
-  name: my-prometheus-kube-state-metrics
+  name: kube-state-metrics-demo
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: my-prometheus-kube-state-metrics
+  name: kube-state-metrics-demo
 subjects:
 - kind: ServiceAccount
-  name: my-prometheus-kube-state-metrics
+  name: kube-state-metrics-demo
   namespace: default
 ---
 # Source: prometheus/charts/kube-state-metrics/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-prometheus-kube-state-metrics
+  name: kube-state-metrics-demo
   namespace: default
   labels:    
     helm.sh/chart: kube-state-metrics-5.8.2
@@ -203,7 +203,7 @@ metadata:
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: "2.9.2"
   annotations:
     prometheus.io/scrape: 'true'
@@ -217,13 +217,13 @@ spec:
   
   selector:    
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
 ---
 # Source: prometheus/charts/kube-state-metrics/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-prometheus-kube-state-metrics
+  name: kube-state-metrics-demo
   namespace: default
   labels:    
     helm.sh/chart: kube-state-metrics-5.8.2
@@ -231,13 +231,13 @@ metadata:
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: "2.9.2"
 spec:
   selector:
     matchLabels:      
       app.kubernetes.io/name: kube-state-metrics
-      app.kubernetes.io/instance: my-prometheus
+      app.kubernetes.io/instance: demo
   replicas: 1
   template:
     metadata:
@@ -247,11 +247,11 @@ spec:
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: kube-state-metrics
         app.kubernetes.io/name: kube-state-metrics
-        app.kubernetes.io/instance: my-prometheus
+        app.kubernetes.io/instance: demo
         app.kubernetes.io/version: "2.9.2"
     spec:
       hostNetwork: false
-      serviceAccountName: my-prometheus-kube-state-metrics
+      serviceAccountName: kube-state-metrics-demo
       securityContext:
         fsGroup: 65534
         runAsGroup: 65534

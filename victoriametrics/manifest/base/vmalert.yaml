@@ -1,10 +1,10 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAlertmanager
 metadata:
-  name: example
+  name: demo
   namespace: default
   labels:
-    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/name: vmalertmanager
 spec:
   image:
     repository: prom/alertmanager
@@ -14,7 +14,7 @@ spec:
     searches:
       - default.svc.cluster.local
   replicaCount: 3
-  configSecret: vmalertmanager-example-alertmanager
+  configSecret: vmalertmanager-demo-secret
   selectAllByDefault: true
 
 ---
@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: vmalertmanager-nodeport
+  name: vmalertmanager-demo-nodeport
   namespace: default
 spec:
   ports:
@@ -34,7 +34,7 @@ spec:
   selector:
     app.kubernetes.io/component: monitoring
     app.kubernetes.io/name: vmalertmanager
-    app.kubernetes.io/instance: example
+    app.kubernetes.io/instance: demo
   sessionAffinity: None
   type: "NodePort"
 
@@ -43,7 +43,7 @@ spec:
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAlert
 metadata:
-  name: example-ha
+  name: demo
   namespace: default
   labels:
     app.kubernetes.io/name: vmalert
@@ -56,22 +56,22 @@ spec:
   evaluationInterval: "10s"
   selectAllByDefault: true
   datasource:
-    url: http://vmselect-example-vmcluster-persistent.default.svc.cluster.local:8481/select/0/prometheus
+    url: http://vmselect-demo-vmcluster-persistent.default.svc.cluster.local:8481/select/0/prometheus
   notifiers:
-    - url: http://vmalertmanager-example-0.vmalertmanager-example:9093
-    - url: http://vmalertmanager-example-1.vmalertmanager-example:9093
-    - url: http://vmalertmanager-example-2.vmalertmanager-example:9093
+    - url: http://vmalertmanager-demo-0.vmalertmanager-demo:9093
+    - url: http://vmalertmanager-demo-1.vmalertmanager-demo:9093
+    - url: http://vmalertmanager-demo-2.vmalertmanager-demo:9093
   remoteWrite:
-    url: http://vminsert-example-vmcluster-persistent.default.svc.cluster.local:8480/insert/0/prometheus
+    url: http://vminsert-demo-vmcluster-persistent.default.svc.cluster.local:8480/insert/0/prometheus
   remoteRead:
-    url: http://vmselect-example-vmcluster-persistent.default.svc.cluster.local:8481/select/0/prometheus
+    url: http://vmselect-demo-vmcluster-persistent.default.svc.cluster.local:8481/select/0/prometheus
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: vmalert-nodeport
+  name: vmalert-demo-nodeport
   namespace: default
 spec:
   ports:
@@ -83,7 +83,7 @@ spec:
   selector:
     app.kubernetes.io/component: monitoring
     app.kubernetes.io/name: vmalert
-    app.kubernetes.io/instance: example-ha
+    app.kubernetes.io/instance: demo
   sessionAffinity: None
   type: "NodePort"
 

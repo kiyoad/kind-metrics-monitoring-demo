@@ -5,15 +5,15 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: mailhog
-    app.kubernetes.io/instance: my-mailhog
-  name: my-mailhog-server
+    app.kubernetes.io/instance: demo
+  name: mailhog-demo
   namespace: default
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: server
       app.kubernetes.io/name: mailhog
-      app.kubernetes.io/instance: my-mailhog
+      app.kubernetes.io/instance: demo
   replicas: 1
   strategy:
     type: Recreate
@@ -23,7 +23,7 @@ spec:
       labels:
         app.kubernetes.io/component: server
         app.kubernetes.io/name: mailhog
-        app.kubernetes.io/instance: my-mailhog
+        app.kubernetes.io/instance: demo
     spec:
       containers:
         - name: mailhog-server
@@ -39,8 +39,8 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: mailhog
-    app.kubernetes.io/instance: my-mailhog
-  name: my-mailhog-nodeport
+    app.kubernetes.io/instance: demo
+  name: mailhog-demo-nodeport
   namespace: default
 spec:
   ports:
@@ -52,7 +52,7 @@ spec:
   selector:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: mailhog
-    app.kubernetes.io/instance: my-mailhog
+    app.kubernetes.io/instance: demo
   type: "NodePort"
 
 ---
@@ -62,8 +62,8 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: mailhog
-    app.kubernetes.io/instance: my-mailhog
-  name: my-mailhog-smtp
+    app.kubernetes.io/instance: demo
+  name: mailhog-demo-smtp
   namespace: default
 spec:
   ports:
@@ -74,7 +74,7 @@ spec:
   selector:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: mailhog
-    app.kubernetes.io/instance: my-mailhog
+    app.kubernetes.io/instance: demo
 
 ---
-# my-mailhog-smtp.default.svc.cluster.local
+# mailhog-demo-smtp.default.svc.cluster.local

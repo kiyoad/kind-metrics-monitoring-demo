@@ -1,4 +1,4 @@
 #!/bin/bash
 set -euxo pipefail
-kubectl delete --kustomize=overlays
+kubectl kustomize overlays | ./vmalert-vmalertmanager-patcher.sh | kubectl delete -f -
 

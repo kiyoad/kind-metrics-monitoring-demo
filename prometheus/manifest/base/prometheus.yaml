@@ -6,12 +6,12 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: prometheus
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: v2.45.0
     helm.sh/chart: prometheus-23.1.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: prometheus
-  name: my-prometheus-server
+  name: prometheus-demo
   namespace: default
   annotations:
     {}
@@ -23,12 +23,12 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: prometheus
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: v2.45.0
     helm.sh/chart: prometheus-23.1.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: prometheus
-  name: my-prometheus-server
+  name: prometheus-demo
   namespace: default
 data:
   allow-snippet-annotations: "false"
@@ -42,7 +42,7 @@ data:
       scrape_interval: 1m
       scrape_timeout: 10s
     remote_write:
-      - url: http://vminsert-example-vmcluster-persistent.default.svc.cluster.local:8480/insert/0/prometheus
+      - url: http://vminsert-demo-vmcluster-persistent.default.svc.cluster.local:8480/insert/0/prometheus
     rule_files:
     - /etc/config/recording_rules.yml
     - /etc/config/alerting_rules.yml
@@ -138,12 +138,12 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: prometheus
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: v2.45.0
     helm.sh/chart: prometheus-23.1.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: prometheus
-  name: my-prometheus-server
+  name: prometheus-demo
 rules:
   - apiGroups:
       - ""
@@ -182,20 +182,20 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: prometheus
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: v2.45.0
     helm.sh/chart: prometheus-23.1.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: prometheus
-  name: my-prometheus-server
+  name: prometheus-demo
 subjects:
   - kind: ServiceAccount
-    name: my-prometheus-server
+    name: prometheus-demo
     namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: my-prometheus-server
+  name: prometheus-demo
 ---
 # Source: prometheus/templates/service.yaml
 apiVersion: v1
@@ -204,12 +204,12 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: prometheus
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: v2.45.0
     helm.sh/chart: prometheus-23.1.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: prometheus
-  name: my-prometheus-server
+  name: prometheus-demo
   namespace: default
 spec:
   ports:
@@ -221,7 +221,7 @@ spec:
   selector:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: prometheus
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
   sessionAffinity: None
   type: "NodePort"
 ---
@@ -232,19 +232,19 @@ metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: prometheus
-    app.kubernetes.io/instance: my-prometheus
+    app.kubernetes.io/instance: demo
     app.kubernetes.io/version: v2.45.0
     helm.sh/chart: prometheus-23.1.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: prometheus
-  name: my-prometheus-server
+  name: prometheus-demo
   namespace: default
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: server
       app.kubernetes.io/name: prometheus
-      app.kubernetes.io/instance: my-prometheus
+      app.kubernetes.io/instance: demo
   replicas: 2
   strategy:
     type: Recreate
@@ -254,14 +254,14 @@ spec:
       labels:
         app.kubernetes.io/component: server
         app.kubernetes.io/name: prometheus
-        app.kubernetes.io/instance: my-prometheus
+        app.kubernetes.io/instance: demo
         app.kubernetes.io/version: v2.45.0
         helm.sh/chart: prometheus-23.1.0
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: prometheus
     spec:
       enableServiceLinks: true
-      serviceAccountName: my-prometheus-server
+      serviceAccountName: prometheus-demo
       containers:
         - name: prometheus-server-configmap-reload
           image: "quay.io/prometheus-operator/prometheus-config-reloader:v0.66.0"
@@ -326,7 +326,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: my-prometheus-server
+            name: prometheus-demo
         - name: storage-volume
           emptyDir:
             {}
