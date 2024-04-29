@@ -66,7 +66,7 @@ data:
     - access: proxy
       name: VictoriaMetrics
       type: prometheus
-      url: http://vmselect-demo-vmcluster-persistent.default.svc.cluster.local:8481/select/0/prometheus
+      url: http://vmauth-demo.default.svc.cluster.local:8427/select/0/prometheus
   dashboardproviders.yaml: |
     apiVersion: 1
     providers:
