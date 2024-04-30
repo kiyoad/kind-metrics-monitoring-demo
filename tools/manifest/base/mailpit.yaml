@@ -31,6 +31,26 @@ spec:
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 8025
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8025
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            timeoutSeconds: 4
+            failureThreshold: 3
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 8025
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
 
 ---
 apiVersion: v1
