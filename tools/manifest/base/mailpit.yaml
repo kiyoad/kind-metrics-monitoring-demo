@@ -4,15 +4,15 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/name: mailpit
     app.kubernetes.io/instance: demo
-  name: mailhog-demo
+  name: mailpit-demo
   namespace: default
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: server
-      app.kubernetes.io/name: mailhog
+      app.kubernetes.io/name: mailpit
       app.kubernetes.io/instance: demo
   replicas: 1
   strategy:
@@ -22,12 +22,12 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/component: server
-        app.kubernetes.io/name: mailhog
+        app.kubernetes.io/name: mailpit
         app.kubernetes.io/instance: demo
     spec:
       containers:
-        - name: mailhog-server
-          image: "mailhog/mailhog:v1.0.1"
+        - name: mailpit-server
+          image: "axllent/mailpit:latest"
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 8025
@@ -38,9 +38,9 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/name: mailpit
     app.kubernetes.io/instance: demo
-  name: mailhog-demo-nodeport
+  name: mailpit-demo-nodeport
   namespace: default
 spec:
   ports:
@@ -51,7 +51,7 @@ spec:
       nodePort: 30025
   selector:
     app.kubernetes.io/component: server
-    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/name: mailpit
     app.kubernetes.io/instance: demo
   type: "NodePort"
 
@@ -61,9 +61,9 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/name: mailpit
     app.kubernetes.io/instance: demo
-  name: mailhog-demo-smtp
+  name: mailpit-demo-smtp
   namespace: default
 spec:
   ports:
@@ -73,8 +73,8 @@ spec:
       targetPort: 1025
   selector:
     app.kubernetes.io/component: server
-    app.kubernetes.io/name: mailhog
+    app.kubernetes.io/name: mailpit
     app.kubernetes.io/instance: demo
 
 ---
-# mailhog-demo-smtp.default.svc.cluster.local
+# mailpit-demo-smtp.default.svc.cluster.local

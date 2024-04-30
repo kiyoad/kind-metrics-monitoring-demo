@@ -31,8 +31,8 @@ stringData:
   alertmanager.yaml: |
     global:
       resolve_timeout: 5m
-      smtp_smarthost: 'mailhog-demo-smtp.default.svc.cluster.local:1025'
-      smtp_hello: 'mailhog-demo-smtp.default.svc.cluster.local'
+      smtp_smarthost: 'mailpit-demo-smtp.default.svc.cluster.local:1025'
+      smtp_hello: 'mailpit-demo-smtp.default.svc.cluster.local'
       smtp_from: 'alertmanager@example.com'
       smtp_require_tls: false
     route:

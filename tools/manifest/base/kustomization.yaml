@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - node-exporter.yaml
   - kube-state-metrics.yaml
-  - mailhog.yaml
+  - mailpit.yaml
