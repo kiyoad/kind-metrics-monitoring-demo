@@ -24,7 +24,6 @@ spec:
   dnsConfig:
     searches:
       - default.svc.cluster.local
-  configSecret: vmalertmanager-demo-secret
   selectAllByDefault: true
 
 ---

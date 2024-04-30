@@ -1,48 +1,18 @@
-#apiVersion: operator.victoriametrics.com/v1beta1
-#kind: VMAlertmanagerConfig
-#metadata:
-#  name: example-alertmanagerconfig
-#  namespace: default
-#spec:
-#  route:
-#    receiver: email
-#    group_interval: 1m
-#    routes:
-#    - receiver: email
-#  receivers:
-#    - name: email
-#      email_configs:
-#        - to: some-email@example.com
-#          from: alerting@example.com
-#          smarthost: example.com:25
-#          text: ALARM
-#      webhook_configs:
-#        - url: http://some-other-wh
-#
----
-apiVersion: v1
-kind: Secret
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlertmanagerConfig
 metadata:
-  name: vmalertmanager-demo-secret
-  labels:
-    app: vm-operator
-type: Opaque
-stringData:
-  alertmanager.yaml: |
-    global:
-      resolve_timeout: 5m
-      smtp_smarthost: 'mailpit-demo-smtp.default.svc.cluster.local:1025'
-      smtp_hello: 'mailpit-demo-smtp.default.svc.cluster.local'
-      smtp_from: 'alertmanager@example.com'
-      smtp_require_tls: false
-    route:
-      #group_by: ['job']
-      #group_wait: 30s
-      #group_interval: 5m
-      #repeat_interval: 12h
-      receiver: 'example.email'
-    receivers:
-      - name: 'example.email'
-        email_configs:
-          - to: 'alert@example.com'
+  name: vmalertmanagerconfig-demo
+  namespace: default
+spec:
+  route:
+    receiver: email
+  receivers:
+    - name: email
+      email_configs:
+        - send_resolved: false
+          to: 'alert@example.com'
+          from: 'alertmanager@example.com'
+          hello: 'mail.example.com'
+          smarthost: 'mailpit-demo-smtp.default.svc.cluster.local:1025'
+          require_tls: false
 
