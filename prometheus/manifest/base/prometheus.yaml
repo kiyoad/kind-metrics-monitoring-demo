@@ -316,6 +316,16 @@ spec:
             - name: storage-volume
               mountPath: /data
               subPath: ""
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app.kubernetes.io/name"
+                    operator: In
+                    values:
+                      - "prometheus"
+              topologyKey: "kubernetes.io/hostname"
       dnsPolicy: ClusterFirst
       securityContext:
         fsGroup: 65534
