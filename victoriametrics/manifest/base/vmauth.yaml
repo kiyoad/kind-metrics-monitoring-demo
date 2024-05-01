@@ -8,8 +8,10 @@ spec:
   selectAllByDefault: true
   image:
     repository: victoriametrics/vmauth
-    tag: v1.93.13
+    tag: v1.101.0
     pullPolicy: IfNotPresent
+  extraArgs:
+    discoverBackendIPs: "true"
   affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -31,6 +33,5 @@ spec:
     - src_paths:
         - "/select/.+"
       url_prefix:
-        - http://vmselect-demo-vmcluster-persistent-0.vmselect-demo-vmcluster-persistent.default.svc.cluster.local:8481
-        - http://vmselect-demo-vmcluster-persistent-1.vmselect-demo-vmcluster-persistent.default.svc.cluster.local:8481
+        - http://vmselect-demo-vmcluster-persistent.default.svc.cluster.local:8481
 
