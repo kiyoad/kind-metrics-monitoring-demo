@@ -4,7 +4,7 @@ metadata:
   name: demo
   namespace: default
 spec:
-  replicaCount: 2
+  replicaCount: 3
   selectAllByDefault: true
   image:
     repository: victoriametrics/vmauth
@@ -30,6 +30,10 @@ spec:
       cpu: "250m"
       memory: "256Mi"
   unauthorizedAccessConfig:
+    - src_paths:
+        - "/insert/.+"
+      url_prefix:
+        - http://vminsert-demo-vmcluster-persistent.default.svc.cluster.local:8480
     - src_paths:
         - "/select/.+"
       url_prefix:

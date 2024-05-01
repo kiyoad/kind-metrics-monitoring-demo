@@ -81,7 +81,7 @@ spec:
     - url: http://vmalertmanager-demo-1.vmalertmanager-demo:9093
     - url: http://vmalertmanager-demo-2.vmalertmanager-demo:9093
   remoteWrite:
-    url: http://vminsert-demo-vmcluster-persistent.default.svc.cluster.local:8480/insert/0/prometheus
+    url: http://vmauth-demo.default.svc.cluster.local:8427/insert/0/prometheus
   remoteRead:
     url: http://vmauth-demo.default.svc.cluster.local:8427/select/0/prometheus
 

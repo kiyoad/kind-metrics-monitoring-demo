@@ -42,7 +42,7 @@ data:
       scrape_interval: 1m
       scrape_timeout: 10s
     remote_write:
-      - url: http://vminsert-demo-vmcluster-persistent.default.svc.cluster.local:8480/insert/0/prometheus
+      - url: http://vmauth-demo.default.svc.cluster.local:8427/insert/0/prometheus
     rule_files:
     - /etc/config/recording_rules.yml
     - /etc/config/alerting_rules.yml
