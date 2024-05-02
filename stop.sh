@@ -7,5 +7,5 @@ set -euxo pipefail
 (cd victoriametrics/manifest && bash -c ./delete.sh)
 (cd victoriametrics/config && bash -c ./delete.sh)
 (cd victoriametrics/operator && bash -c ./delete.sh)
-(cd kind && bash -c ./stop.sh)
+# (cd kind && bash -c ./stop.sh)
 
