@@ -15,5 +15,4 @@ do
 done
 
 kubectl wait -A --for=condition=Ready pod --all
-kubectl apply -f pv.yaml
 
