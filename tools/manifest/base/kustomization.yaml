@@ -4,3 +4,4 @@ resources:
   - node-exporter.yaml
   - kube-state-metrics.yaml
   - mailpit.yaml
+  - avalanche.yaml
