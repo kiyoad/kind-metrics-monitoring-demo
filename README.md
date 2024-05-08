@@ -43,7 +43,7 @@ How to start it
 
 List of ports for browser access
 
-* Grafana: `http://kindhost:3000/`
+* Grafana: `http://kindhost:3000/` ID:PASS=admin:adminadmin
 * Mailpit: `http://kindhost:8025/`
 * VMAlert: `http://kindhost:8080/`
 * Prometheus: `http://kindhost:9090/`
