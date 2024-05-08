@@ -19,6 +19,8 @@ nodes:
   - containerPort: 30093
     hostPort: 9093
 - role: worker
+  # You must use the @sha256 digest to guarantee an image built for your kind version.
+  # https://github.com/kubernetes-sigs/kind/releases
   image: kindest/node:v1.29.2@sha256:51a1434a5397193442f0be2a297b488b6c919ce8a3931be0ce822606ea5ca245
   extraMounts:
     - hostPath: %STORAGE_PATH%/storage/worker1/1
