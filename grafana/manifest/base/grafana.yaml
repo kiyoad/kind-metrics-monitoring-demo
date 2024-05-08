@@ -29,7 +29,7 @@ type: Opaque
 data:
   
   admin-user: "YWRtaW4="
-  admin-password: "RVB2U1RDSFlnNWM0NFRRUUVpMkl2WGhWbUVUTWtxbnhRZk42RU43SA=="
+  admin-password: "YWRtaW5hZG1pbg=="
   ldap-toml: ""
 ---
 # Source: grafana/templates/configmap.yaml
