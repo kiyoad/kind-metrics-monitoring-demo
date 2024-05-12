@@ -1,0 +1,47 @@
+adminUser: admin
+adminPassword: adminadmin
+
+service:
+  type: NodePort
+  nodePort: 30000
+
+datasources:
+ datasources.yaml:
+   apiVersion: 1
+   datasources:
+    - name: "VictoriaMetrics"
+      type: prometheus
+      access: proxy
+      url: http://vmauth-demo.default.svc.cluster.local:8427/select/0/prometheus
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    node-exporter:
+      datasource: VictoriaMetrics
+      url: https://grafana.com/api/dashboards/1860/revisions/36/download
+    alertmanager:
+      datasource: VictoriaMetrics
+      url: https://grafana.com/api/dashboards/9578/revisions/3/download
+    victoriametrics-cluster:
+      datasource: VictoriaMetrics
+      url: https://grafana.com/api/dashboards/11176/revisions/36/download
+    victoriametrics-vmalert:
+      datasource: VictoriaMetrics
+      url: https://grafana.com/api/dashboards/14950/revisions/10/download
+    prometheus-2-0:
+      datasource: VictoriaMetrics
+      url: https://grafana.com/api/dashboards/3662/revisions/2/download
+
