@@ -14,6 +14,7 @@ However, since it is a demo, it will be run on kind
 * kind 0.22.0 or above (CPU >= 2core, Memory >= 8GB)
   * kindest/node:v1.29.2 or above
 * kubectl(+kustomize)
+* helm
 * bash,sed,head,base64,rm,curl,unzip,watch,git
 
 ### Installing
