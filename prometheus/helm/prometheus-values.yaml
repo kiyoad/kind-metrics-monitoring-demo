@@ -1,6 +1,6 @@
 server:
   image:
-    tag: "v2.45.3"
+    tag: "v2.45.5"
   remoteWrite:
     - url: http://vmauth-demo.default.svc.cluster.local:8427/insert/0/prometheus  
   affinity:

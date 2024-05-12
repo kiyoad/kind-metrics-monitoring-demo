@@ -2,5 +2,5 @@
 set -euxo pipefail
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
-helm template --namespace monitoring demo prometheus-community/prometheus -f prometheus-values.yaml --version 23.1.0 | ./prometheus-tmpl-patcher.sh | kubectl apply -f -
+helm template --namespace monitoring demo prometheus-community/prometheus -f prometheus-values.yaml | ./prometheus-tmpl-patcher.sh | kubectl apply -f -
 
