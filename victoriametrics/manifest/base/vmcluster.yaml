@@ -35,7 +35,7 @@ spec:
           volumeMode: Filesystem
           accessModes:
             - ReadWriteOnce
-          storageClassName: local-storage
+          storageClassName: local-storage1
     resources:
       limits:
         cpu: 500m
