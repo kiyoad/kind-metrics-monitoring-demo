@@ -3,6 +3,8 @@ kind: VMAuth
 metadata:
   name: demo
   namespace: default
+  annotations:
+    prometheus.io/scrape: "true"
 spec:
   replicaCount: 3
   selectAllByDefault: true

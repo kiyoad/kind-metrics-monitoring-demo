@@ -8,6 +8,16 @@ spec:
   retentionPeriod: 7d
   replicationFactor: 2
   vmstorage:
+    serviceSpec:
+      metadata:
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "8482"
+      spec:
+        ports:
+        - name: monitoring
+          protocol: TCP
+          port: 8482
     replicaCount: 3
     storageDataPath: "/vm-data"
     image:
@@ -41,6 +51,16 @@ spec:
         cpu: 500m
         memory: 2048Mi
   vmselect:
+    serviceSpec:
+      metadata:
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "8481"
+      spec:
+        ports:
+        - name: monitoring
+          protocol: TCP
+          port: 8481
     replicaCount: 2
     image:
       repository: victoriametrics/vmselect
@@ -68,6 +88,16 @@ spec:
         cpu: 250m
         memory: "500Mi"
   vminsert:
+    serviceSpec:
+      metadata:
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "8480"
+      spec:
+        ports:
+        - name: monitoring
+          protocol: TCP
+          port: 8480
     replicaCount: 2
     image:
       repository: victoriametrics/vminsert

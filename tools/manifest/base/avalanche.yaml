@@ -26,6 +26,7 @@ spec:
     metadata:
       annotations:
         avalanche/scrape: "true"
+        prometheus.io/scrape: "true"
       labels:
         app.kubernetes.io/component: testtool
         app.kubernetes.io/name: avalanche

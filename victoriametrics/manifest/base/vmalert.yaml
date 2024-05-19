@@ -5,6 +5,9 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: vmalertmanager
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9093"
 spec:
   image:
     repository: prom/alertmanager
@@ -68,6 +71,8 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: vmalert
+  annotations:
+    prometheus.io/scrape: "true"
 spec:
   image:
     repository: victoriametrics/vmalert
