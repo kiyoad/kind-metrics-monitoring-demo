@@ -29,6 +29,8 @@ alertmanager:
 
 kube-state-metrics:
   enabled: true
+  selfMonitor:
+    enabled: true
 
 prometheus-node-exporter:
   enabled: true
