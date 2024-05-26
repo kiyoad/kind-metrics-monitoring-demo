@@ -16,9 +16,17 @@ server:
   persistentVolume:
     enabled: false
   replicaCount: 2
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
+  statefulSet:
+    enabled: true
   service:
     type: NodePort
     nodePort: 30090
+    statefulsetReplica:
+      enabled: true
+      replica: 0
   global:
     evaluation_interval: 1m
     scrape_interval: 1m
