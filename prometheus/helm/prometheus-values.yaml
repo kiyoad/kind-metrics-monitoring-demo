@@ -14,7 +14,8 @@ server:
                   - prometheus
           topologyKey: kubernetes.io/hostname
   persistentVolume:
-    enabled: false
+    enabled: true
+    storageClass: "local-storage3"
   replicaCount: 2
   podAnnotations:
     prometheus.io/scrape: "true"
