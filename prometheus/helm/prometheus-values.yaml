@@ -22,6 +22,10 @@ server:
     prometheus.io/port: "9090"
   statefulSet:
     enabled: true
+  resources:
+    limits:
+      cpu: 125m
+      memory: 1024Mi
   service:
     type: NodePort
     nodePort: 30090
