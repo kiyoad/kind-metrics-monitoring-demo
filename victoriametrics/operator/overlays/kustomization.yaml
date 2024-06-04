@@ -4,4 +4,7 @@ resources:
   - ../base
 
 namespace: monitoring
+replicas:
+- name: vm-operator
+  count: 2
 
