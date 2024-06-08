@@ -61,7 +61,7 @@ spec:
         - name: monitoring
           protocol: TCP
           port: 8481
-    replicaCount: 2
+    replicaCount: 3
     image:
       repository: victoriametrics/vmselect
       tag: v1.101.0-cluster
