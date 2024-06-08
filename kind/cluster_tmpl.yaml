@@ -47,4 +47,13 @@ nodes:
       containerPath: /pv2
     - hostPath: %STORAGE_PATH%/storage/worker3/3
       containerPath: /pv3
+- role: worker
+  image: kindest/node:v1.29.2@sha256:51a1434a5397193442f0be2a297b488b6c919ce8a3931be0ce822606ea5ca245
+  extraMounts:
+    - hostPath: %STORAGE_PATH%/storage/worker4/1
+      containerPath: /pv1
+    - hostPath: %STORAGE_PATH%/storage/worker4/2
+      containerPath: /pv2
+    - hostPath: %STORAGE_PATH%/storage/worker4/3
+      containerPath: /pv3
 
