@@ -14,14 +14,16 @@ server:
                   - prometheus
           topologyKey: kubernetes.io/hostname
   persistentVolume:
-    enabled: true
-    storageClass: "local-storage3"
+    enabled: false
+    #    enabled: true
+    #    storageClass: "local-storage3"
   replicaCount: 2
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "9090"
   statefulSet:
-    enabled: true
+    enabled: false
+    #    enabled: true
   resources:
     limits:
       cpu: 125m
