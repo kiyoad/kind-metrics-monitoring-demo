@@ -31,16 +31,16 @@ dashboards:
   default:
     node-exporter:
       datasource: VictoriaMetrics
-      url: https://grafana.com/api/dashboards/1860/revisions/36/download
+      url: https://grafana.com/api/dashboards/1860/revisions/37/download
     alertmanager:
       datasource: VictoriaMetrics
-      url: https://grafana.com/api/dashboards/9578/revisions/3/download
+      url: https://grafana.com/api/dashboards/9578/revisions/4/download
     victoriametrics-cluster:
       datasource: VictoriaMetrics
-      url: https://grafana.com/api/dashboards/11176/revisions/36/download
+      url: https://grafana.com/api/dashboards/11176/revisions/37/download
     victoriametrics-vmalert:
       datasource: VictoriaMetrics
-      url: https://grafana.com/api/dashboards/14950/revisions/10/download
+      url: https://grafana.com/api/dashboards/14950/revisions/11/download
     prometheus-2-0:
       datasource: VictoriaMetrics
       url: https://grafana.com/api/dashboards/3662/revisions/2/download
