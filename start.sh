@@ -13,4 +13,5 @@ fi
 (cd kube-state-metrics/helm && bash -c ./install.sh)
 (cd prometheus-node-exporter/helm && bash -c ./install.sh)
 (cd prometheus-pushgateway/helm && bash -c ./install.sh)
+(cd prometheus-blackbox-exporter/helm && bash -c ./install.sh)
 

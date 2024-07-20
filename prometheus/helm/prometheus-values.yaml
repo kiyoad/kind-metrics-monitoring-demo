@@ -34,6 +34,8 @@ server:
     statefulsetReplica:
       enabled: true
       replica: 0
+    annotations:
+      prometheus.io/probe: "true"
   global:
     evaluation_interval: 1m
     scrape_interval: 1m
@@ -409,7 +411,7 @@ serverFiles:
           - source_labels: [__address__]
             target_label: __param_target
           - target_label: __address__
-            replacement: blackbox
+            replacement: demo-prometheus-blackbox-exporter.default.svc.cluster.local:9115
           - source_labels: [__param_target]
             target_label: instance
           - action: labelmap

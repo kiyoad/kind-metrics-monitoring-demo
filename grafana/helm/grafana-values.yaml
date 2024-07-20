@@ -4,6 +4,8 @@ adminPassword: adminadmin
 service:
   type: NodePort
   nodePort: 30000
+  annotations:
+    prometheus.io/probe: "true"
 
 datasources:
  datasources.yaml:
@@ -44,4 +46,7 @@ dashboards:
     prometheus-2-0:
       datasource: VictoriaMetrics
       url: https://grafana.com/api/dashboards/3662/revisions/2/download
+    blackbox-exporter_HTTP:
+      datasource: VictoriaMetrics
+      url: https://grafana.com/api/dashboards/13659/revisions/1/download
 

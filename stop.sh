@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
+(cd prometheus-blackbox-exporter/helm && bash -c ./uninstall.sh)
 (cd prometheus-pushgateway/helm && bash -c ./uninstall.sh)
 (cd prometheus-node-exporter/helm && bash -c ./uninstall.sh)
 (cd kube-state-metrics/helm && bash -c ./uninstall.sh)
