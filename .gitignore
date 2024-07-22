@@ -3,3 +3,6 @@ kind/storage/*
 !kind/storage/.gitkeep
 victoriametrics/operator/base/bundle_crd.zip
 victoriametrics/operator/base/release/
+tools/manifest/overlays/kustomization.yaml
+victoriametrics/config/overlays/kustomization.yaml
+victoriametrics/manifest/overlays/kustomization.yaml
