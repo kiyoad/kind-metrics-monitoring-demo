@@ -13,6 +13,6 @@ spec:
           to: 'alert@example.com'
           from: 'alertmanager@example.com'
           hello: 'mail.example.com'
-          smarthost: 'mailpit-demo-smtp.default.svc.cluster.local:1025'
+          smarthost: 'mailpit-demo-smtp:1025'
           require_tls: false
 

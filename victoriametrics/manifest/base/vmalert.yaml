@@ -94,15 +94,15 @@ spec:
   evaluationInterval: "10s"
   selectAllByDefault: true
   datasource:
-    url: http://vmauth-demo.default.svc.cluster.local:8427/select/0/prometheus
+    url: http://vmauth-demo:8427/select/0/prometheus
   notifiers:
     - url: http://vmalertmanager-demo-0.vmalertmanager-demo:9093
     - url: http://vmalertmanager-demo-1.vmalertmanager-demo:9093
     - url: http://vmalertmanager-demo-2.vmalertmanager-demo:9093
   remoteWrite:
-    url: http://vmauth-demo.default.svc.cluster.local:8427/insert/0/prometheus
+    url: http://vmauth-demo:8427/insert/0/prometheus
   remoteRead:
-    url: http://vmauth-demo.default.svc.cluster.local:8427/select/0/prometheus
+    url: http://vmauth-demo:8427/select/0/prometheus
 
 ---
 
