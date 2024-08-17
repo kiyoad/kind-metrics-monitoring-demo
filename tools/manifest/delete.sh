@@ -1,3 +1,3 @@
 #!/bin/bash
 set -euxo pipefail
-kubectl delete --kustomize=overlays || /usr/bin/true
+kubectl delete --kustomize=overlays || true
