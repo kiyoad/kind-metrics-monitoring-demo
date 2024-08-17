@@ -7,12 +7,5 @@ do
   watch -g kubectl get pods -A
 done
 
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico.yaml
-
-while kubectl get pods --no-headers -A | grep -v Running > /dev/null
-do
-  watch -g kubectl get pods -A
-done
-
 kubectl wait -A --for=condition=Ready pod --all
 
