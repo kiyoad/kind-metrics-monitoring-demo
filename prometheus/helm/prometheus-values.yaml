@@ -1,6 +1,6 @@
 server:
   image:
-    tag: "v2.45.5"
+    tag: "v2.53.2"
   remoteWrite:
     - url: http://vmauth-demo:8427/insert/0/prometheus
   affinity:
