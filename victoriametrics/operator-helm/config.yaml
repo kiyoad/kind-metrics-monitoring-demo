@@ -58,7 +58,8 @@ extraLabels: {}
 # extra Labels for Pods only
 podLabels: {}
 # -- Annotations to be added to the all resources
-annotations: {}
+annotations:
+  prometheus.io/scrape: "true"
 
 podSecurityContext: {}
 securityContext: {}

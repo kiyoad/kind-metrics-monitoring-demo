@@ -43,6 +43,12 @@ dashboards:
     victoriametrics-vmalert:
       datasource: VictoriaMetrics
       url: https://grafana.com/api/dashboards/14950/revisions/11/download
+    victoriametrics-operator:
+      datasource: VictoriaMetrics
+      url: https://grafana.com/api/dashboards/17869/revisions/2/download
+    victoriametrics-vmauth:
+      datasource: VictoriaMetrics
+      url: https://grafana.com/api/dashboards/21394/revisions/2/download
     prometheus-2-0:
       datasource: VictoriaMetrics
       url: https://grafana.com/api/dashboards/3662/revisions/2/download
