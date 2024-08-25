@@ -8,6 +8,8 @@ spec:
   retentionPeriod: 7d
   replicationFactor: 2
   vmstorage:
+    extraArgs:
+      dedup.minScrapeInterval: 1m
     serviceSpec:
       metadata:
         annotations:
@@ -51,6 +53,8 @@ spec:
         cpu: 500m
         memory: 2048Mi
   vmselect:
+    extraArgs:
+      dedup.minScrapeInterval: 1m
     serviceSpec:
       metadata:
         annotations:
