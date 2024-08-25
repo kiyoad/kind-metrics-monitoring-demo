@@ -8,6 +8,7 @@ set -euxo pipefail
 (cd grafana/helm && bash -c ./uninstall.sh)
 (cd prometheus/helm && bash -c ./uninstall.sh)
 (cd tools/manifest && bash -c ./delete.sh)
+(cd victoriametrics/downsampling && bash -c ./delete.sh)
 (cd victoriametrics/manifest && bash -c ./delete.sh)
 (cd victoriametrics/config && bash -c ./delete.sh)
 (cd victoriametrics/operator-helm && bash -c ./uninstall.sh)

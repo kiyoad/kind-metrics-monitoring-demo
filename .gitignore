@@ -4,5 +4,6 @@ kind/storage/*
 tools/manifest/overlays/kustomization.yaml
 victoriametrics/config/overlays/kustomization.yaml
 victoriametrics/manifest/overlays/kustomization.yaml
+victoriametrics/downsampling/overlays/kustomization.yaml
 unused/*
 

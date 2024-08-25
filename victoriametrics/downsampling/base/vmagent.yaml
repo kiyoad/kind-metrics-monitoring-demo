@@ -1,0 +1,49 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: demo-downsampling
+  namespace: default
+  labels:
+    app.kubernetes.io/name: vmagent
+  annotations:
+    prometheus.io/scrape: "true"
+spec:
+  replicaCount: 1
+  image:
+    repository: victoriametrics/vmagent
+    tag: v1.102.1
+    pullPolicy: IfNotPresent
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: "app.kubernetes.io/name"
+                operator: In
+                values:
+                  - "vmagent"
+          topologyKey: "kubernetes.io/hostname"
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "64Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+  scrapeInterval: 10m
+  statefulMode: false
+  remoteWrite:
+    - url: http://vmauth-demo:8427/insert/1/prometheus
+  selectAllByDefault: false
+  extraArgs:
+    promscrape.maxScrapeSize: 64MB
+  inlineScrapeConfig: |
+    - job_name: "downsampling"
+      stream_parse: true
+      static_configs:
+        - targets:
+          - vmauth-demo:8427/select/0/prometheus/federate
+      honor_labels: true
+      metrics_path: /federate
+      params:
+        'match[]': ['{__name__!=""}']

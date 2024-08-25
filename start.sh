@@ -8,6 +8,7 @@ fi
 (cd victoriametrics/operator-helm && bash -c ./install.sh)
 (cd victoriametrics/config && bash -c ./apply.sh)
 (cd victoriametrics/manifest && bash -c ./apply.sh)
+(cd victoriametrics/downsampling && bash -c ./apply.sh)
 (cd tools/manifest && bash -c ./apply.sh)
 (cd prometheus/helm && bash -c ./install.sh)
 (cd grafana/helm && bash -c ./install.sh)
