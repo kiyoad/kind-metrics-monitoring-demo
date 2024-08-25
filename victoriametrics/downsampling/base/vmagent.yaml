@@ -8,7 +8,7 @@ metadata:
   annotations:
     prometheus.io/scrape: "true"
 spec:
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: victoriametrics/vmagent
     tag: v1.102.1
@@ -30,13 +30,25 @@ spec:
     limits:
       cpu: "500m"
       memory: "256Mi"
-  scrapeInterval: 10m
-  statefulMode: false
+  statefulMode: true
+  statefulStorage:
+    volumeClaimTemplate:
+      metadata:
+        name: vmagent-statefulstorage-pvc
+      spec:
+        resources:
+          requests:
+            storage: 1Gi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: local-storage3
   remoteWrite:
     - url: http://vmauth-demo:8427/insert/1/prometheus
-  selectAllByDefault: false
   extraArgs:
     promscrape.maxScrapeSize: 64MB
+  scrapeInterval: 10m
+  selectAllByDefault: false
   inlineScrapeConfig: |
     - job_name: "downsampling"
       stream_parse: true
