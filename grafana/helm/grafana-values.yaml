@@ -15,6 +15,10 @@ datasources:
       type: prometheus
       access: proxy
       url: http://vmauth-demo:8427/select/0/prometheus
+    - name: "Downsampled"
+      type: prometheus
+      access: proxy
+      url: http://vmauth-demo:8427/select/1/prometheus
 
 dashboardProviders:
   dashboardproviders.yaml:
@@ -55,4 +59,6 @@ dashboards:
     blackbox-exporter_HTTP:
       datasource: VictoriaMetrics
       url: https://grafana.com/api/dashboards/13659/revisions/1/download
-
+    victoriametrics-vmagent:
+      datasource: VictoriaMetrics
+      url: https://grafana.com/api/dashboards/12683/revisions/19/download
