@@ -11,8 +11,8 @@ However, since it is a demo, it will be run on kind
 
 ### Dependencies
 
-* kind 0.22.0 or above (CPU >= 2core, Memory >= 8GB)
-  * kindest/node:v1.29.2 or above
+* kind 0.24.0 or above (CPU >= 2core, Memory >= 8GB)
+  * kindest/node:v1.31.0 or above
 * kubectl(+kustomize)
 * helm
 * bash,sed,head,base64,rm,curl,unzip,watch,git
@@ -31,7 +31,7 @@ How to start it
 
 1. `$ cd kind-metrics-monitoring-demo`
 1. `$ ./start.sh`
-   1. Start kind with Calico embedded in the prepared cluster settings.
+   1. Start kind ~~with Calico embedded in the prepared cluster settingsi~~.
    2. Prepare a PersistentVolume in the local file system for VMCluster.
    3. If you haven't already, get VictoriaMetrics Operator.
    4. Start VictoriaMetrics Operator.
@@ -59,7 +59,7 @@ This project is licensed under the Apache-2.0 License - see the LICENSE file for
 Inspiration, code snippets, etc.
 
 * [kind](https://kind.sigs.k8s.io)
-* [Calico: kind multi-node install](https://docs.tigera.io/calico/latest/getting-started/kubernetes/kind)
+* ~~[Calico: kind multi-node install](https://docs.tigera.io/calico/latest/getting-started/kubernetes/kind)~~
 * [VictoriaMetrics](https://victoriametrics.com)
 * [Kubernetes operator for Victoria Metrics](https://github.com/VictoriaMetrics/operator)
 * [Prometheus](https://prometheus.io)
