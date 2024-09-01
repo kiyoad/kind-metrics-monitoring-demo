@@ -12,7 +12,7 @@ spec:
   selectAllByDefault: true
   image:
     repository: victoriametrics/vmauth
-    tag: v1.102.1
+    tag: v1.103.0
     pullPolicy: IfNotPresent
   extraArgs:
     discoverBackendIPs: "true"
