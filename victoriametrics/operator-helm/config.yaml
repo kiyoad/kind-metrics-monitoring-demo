@@ -1,7 +1,15 @@
+global:
+  image:
+    registry: ""
+  imagePullSecrets: []
+  cluster:
+    dnsDomain: cluster.local
 # Default values for victoria-metrics.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 image:
+  # -- Image registry
+  registry: ""
   # -- Image repository
   repository: victoriametrics/operator
   # -- Image tag
@@ -13,18 +21,19 @@ image:
   # -- Image pull policy
   pullPolicy: IfNotPresent
 
-# -- enables CRD creation and management.
-# -- with this option, if you remove this chart, all crd resources will be deleted with it.
-createCRD: true
-
-# -- Tells helm to clean up all the vm resources under this release's namespace when uninstalling
-cleanupCRD: false
-cleanupImage:
-  repository: bitnami/kubectl
-  # use image tag that matches k8s API version by default
-  # tag: 1.29.6
-  pullPolicy: IfNotPresent
-
+crd:
+  # -- enables CRD creation and management.
+  # -- with this option, if you remove this chart, all crd resources will be deleted with it.
+  create: true
+  cleanup:
+    # -- Tells helm to clean up all the vm resources under this release's namespace when uninstalling
+    enabled: false
+    image:
+      repository: bitnami/kubectl
+      # use image tag that matches k8s API version by default
+      tag: ""
+      pullPolicy: IfNotPresent
+    
 replicaCount: 1
 
 # -- Secret to pull images
@@ -78,14 +87,27 @@ operator:
 
 # By default, the operator will watch all the namespaces
 # If you want to override this behavior, specify the namespace.
-# Operator supports only single namespace for watching.
-watchNamespace: ""
+# Operator supports multiple namespaces for watching.
+watchNamespaces: []
 
 serviceAccount:
   # -- Specifies whether a service account should be created
   create: true
   # -- The name of the service account to use. If not set and create is true, a name is generated using the fullname template
   name: ""
+
+service:
+  annotations: {}
+  labels: {}
+  clusterIP: ""
+  externalIPs: ""
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  type: ClusterIP
+  healthCheckNodePort: ""
+  externalTrafficPolicy: ""
+  ipFamilyPolicy: ""
+  ipFamilies: []
 
 ## See `kubectl explain poddisruptionbudget.spec` for more
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
@@ -161,28 +183,34 @@ extraContainers:
 # -- Configures resource validation
 admissionWebhooks:
   # -- Enables validation webhook.
-  enabled: false
+  enabled: true
   enabledCRDValidation:
     vmagent: true
     vmalert: true
     vmsingle: true
     vmauth: true
     vmrule: true
-    vmalertmanagerConfig: true
+    vmalertmanagerconfig: true
     vmalertmanager: true
     vmcluster: true
     vmuser: true
+    vlogs: true
   # -- What to do in case, when operator not available to validate request.
   policy: Fail
   # -- Enables custom ca bundle, if you are not using cert-manager.
   # -- in case of custom ca, you have to create secret - {{chart-name}}-validation
   # -- with keys: tls.key, tls.crt, ca.crt
-  caBundle: ""
   certManager:
     # -- Enables cert creation and injection by cert-manager.
     enabled: false
     # --If needed, provide own issuer. Operator will create self-signed if empty.
     issuer: {}
+  keepTLSSecret: true
+  # tls specifies TLS cert/key for the webhook
+  tls:
+    caCert:
+    cert:
+    key:
 
 # -- configures monitoring with serviceScrape. VMServiceScrape must be pre-installed
 serviceMonitor:
@@ -190,6 +218,31 @@ serviceMonitor:
   extraLabels: {}
   annotations: {}
   relabelings: []
+  scheme: ""
+  interval: ""
+  scrapeTimeout: ""
+  tlsConfig: {}
+  basicAuth: {}
+
+probe:
+  # Readiness probe
+  readiness:
+    httpGet:
+      port: probe
+    initialDelaySeconds: 5
+    periodSeconds: 15
+    timeoutSeconds: 5
+    failureThreshold: 3
+  # Liveness probe
+  liveness:
+    tcpSocket:
+      port: probe
+    initialDelaySeconds: 5
+    periodSeconds: 15
+    timeoutSeconds: 5
+    failureThreshold: 3
+  # Startup probe
+  startup: {}
 
 # -- Add extra specs dynamically to this chart
 extraObjects: []
