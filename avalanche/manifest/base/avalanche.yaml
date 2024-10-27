@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: avalanche
+  namespace: default
+  labels:
+    app.kubernetes.io/component: testtool
+    app.kubernetes.io/name: avalanche
+    app.kubernetes.io/instance: demo
+    system: freshtracks
+    name: avalanche
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: testtool
+      app.kubernetes.io/name: avalanche
+      app.kubernetes.io/instance: demo
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        avalanche/scrape: "true"
+        prometheus.io/scrape: "true"
+      labels:
+        app.kubernetes.io/component: testtool
+        app.kubernetes.io/name: avalanche
+        app.kubernetes.io/instance: demo
+        system: freshtracks
+        name: avalanche
+    spec:
+      containers:
+        - name: avalanche
+          image: "quay.io/freshtracks.io/avalanche"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - --metric-count=10
+            - --label-count=1
+            - --series-count=5
+            - --value-interval=3600
+            - --series-interval=7200
+            - --metric-interval=86400
+            - --port=9001
+          ports:
+            - containerPort: 9001
+              protocol: TCP
+              name: metrics
+
