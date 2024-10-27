@@ -7,7 +7,7 @@ set -euxo pipefail
 (cd kube-state-metrics/helm && bash -c ./uninstall.sh)
 (cd grafana/helm && bash -c ./uninstall.sh)
 (cd prometheus/helm && bash -c ./uninstall.sh)
-(cd tools/manifest && bash -c ./delete.sh)
+(cd mailpit/manifest && bash -c ./delete.sh)
 (cd victoriametrics/downsampling && bash -c ./delete.sh)
 (cd victoriametrics/manifest && bash -c ./delete.sh)
 (cd victoriametrics/config && bash -c ./delete.sh)

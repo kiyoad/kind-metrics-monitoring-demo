@@ -9,7 +9,7 @@ fi
 (cd victoriametrics/config && bash -c ./apply.sh)
 (cd victoriametrics/manifest && bash -c ./apply.sh)
 (cd victoriametrics/downsampling && bash -c ./apply.sh)
-(cd tools/manifest && bash -c ./apply.sh)
+(cd mailpit/manifest && bash -c ./apply.sh)
 (cd prometheus/helm && bash -c ./install.sh)
 (cd grafana/helm && bash -c ./install.sh)
 (cd kube-state-metrics/helm && bash -c ./install.sh)
