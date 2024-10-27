@@ -6,7 +6,7 @@ fi
 (cd kind && bash -c ./apply.sh)
 (cd namespace && bash -c ./apply.sh)
 (cd victoriametrics/operator-helm && bash -c ./install.sh)
-(cd victoriametrics/config && bash -c ./apply.sh)
+(cd victoriametrics/alerts && bash -c ./apply.sh)
 (cd victoriametrics/manifest && bash -c ./apply.sh)
 (cd victoriametrics/downsampling && bash -c ./apply.sh)
 (cd mailpit/manifest && bash -c ./apply.sh)

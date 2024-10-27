@@ -10,7 +10,7 @@ set -euxo pipefail
 (cd mailpit/manifest && bash -c ./delete.sh)
 (cd victoriametrics/downsampling && bash -c ./delete.sh)
 (cd victoriametrics/manifest && bash -c ./delete.sh)
-(cd victoriametrics/config && bash -c ./delete.sh)
+(cd victoriametrics/alerts && bash -c ./delete.sh)
 (cd victoriametrics/operator-helm && bash -c ./uninstall.sh)
 (cd namespace && bash -c ./delete.sh)
 (cd kind && bash -c ./delete.sh)

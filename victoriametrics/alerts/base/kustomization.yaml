@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - vmalertmanagerconfig.yaml
   - vmrule.yaml
+  - vmalert.yaml
 

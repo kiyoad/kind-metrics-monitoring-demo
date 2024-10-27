@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - vmcluster.yaml
   - vmauth.yaml
-  - vmalert.yaml
 
