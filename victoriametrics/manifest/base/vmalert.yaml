@@ -78,7 +78,7 @@ metadata:
 spec:
   image:
     repository: victoriametrics/vmalert
-    tag: v1.103.0
+    tag: v1.105.0
     pullPolicy: IfNotPresent
   replicaCount: 2
   affinity:

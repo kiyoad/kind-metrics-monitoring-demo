@@ -11,7 +11,7 @@ spec:
   replicaCount: 2
   image:
     repository: victoriametrics/vmagent
-    tag: v1.103.0
+    tag: v1.105.0
     pullPolicy: IfNotPresent
   affinity:
     podAntiAffinity:
