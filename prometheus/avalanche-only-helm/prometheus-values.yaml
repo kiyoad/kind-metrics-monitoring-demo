@@ -40,6 +40,7 @@ server:
     evaluation_interval: 1m
     scrape_interval: 1m
     scrape_timeout: 10s
+  retention: "1d"
 serverFiles:
   prometheus.yml:
     scrape_configs:
