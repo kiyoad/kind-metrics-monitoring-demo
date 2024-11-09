@@ -4,7 +4,7 @@ nodes:
 - role: control-plane
   # You must use the @sha256 digest to guarantee an image built for your kind version.
   # https://github.com/kubernetes-sigs/kind/releases
-  image: kindest/node:v1.31.0@sha256:53df588e04085fd41ae12de0c3fe4c72f7013bba32a20e7325357a1ac94ba865
+  image: kindest/node:v1.31.2@sha256:18fbefc20a7113353c7b75b5c869d7145a6abd6269154825872dc59c1329912e
   extraPortMappings:
   - containerPort: 30000
     hostPort: 3000
@@ -17,7 +17,7 @@ nodes:
   - containerPort: 30093
     hostPort: 9093
 - role: worker
-  image: kindest/node:v1.31.0@sha256:53df588e04085fd41ae12de0c3fe4c72f7013bba32a20e7325357a1ac94ba865
+  image: kindest/node:v1.31.2@sha256:18fbefc20a7113353c7b75b5c869d7145a6abd6269154825872dc59c1329912e
   extraMounts:
     - hostPath: %STORAGE_PATH%/storage/worker1/1
       containerPath: /pv1
@@ -26,7 +26,7 @@ nodes:
     - hostPath: %STORAGE_PATH%/storage/worker1/3
       containerPath: /pv3
 - role: worker
-  image: kindest/node:v1.31.0@sha256:53df588e04085fd41ae12de0c3fe4c72f7013bba32a20e7325357a1ac94ba865
+  image: kindest/node:v1.31.2@sha256:18fbefc20a7113353c7b75b5c869d7145a6abd6269154825872dc59c1329912e
   extraMounts:
     - hostPath: %STORAGE_PATH%/storage/worker2/1
       containerPath: /pv1
@@ -35,7 +35,7 @@ nodes:
     - hostPath: %STORAGE_PATH%/storage/worker2/3
       containerPath: /pv3
 - role: worker
-  image: kindest/node:v1.31.0@sha256:53df588e04085fd41ae12de0c3fe4c72f7013bba32a20e7325357a1ac94ba865
+  image: kindest/node:v1.31.2@sha256:18fbefc20a7113353c7b75b5c869d7145a6abd6269154825872dc59c1329912e
   extraMounts:
     - hostPath: %STORAGE_PATH%/storage/worker3/1
       containerPath: /pv1
@@ -44,7 +44,7 @@ nodes:
     - hostPath: %STORAGE_PATH%/storage/worker3/3
       containerPath: /pv3
 - role: worker
-  image: kindest/node:v1.31.0@sha256:53df588e04085fd41ae12de0c3fe4c72f7013bba32a20e7325357a1ac94ba865
+  image: kindest/node:v1.31.2@sha256:18fbefc20a7113353c7b75b5c869d7145a6abd6269154825872dc59c1329912e
   extraMounts:
     - hostPath: %STORAGE_PATH%/storage/worker4/1
       containerPath: /pv1
