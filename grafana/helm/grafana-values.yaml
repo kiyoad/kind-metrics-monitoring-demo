@@ -7,18 +7,50 @@ service:
   annotations:
     prometheus.io/probe: "true"
 
+plugins:
+  - https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.2/victoriametrics-datasource-v0.10.2.zip;victoriametrics-datasource
+
+grafana.ini:
+  plugins:
+    allow_loading_unsigned_plugins: victoriametrics-datasource
+  paths:
+    data: /var/lib/grafana/
+    logs: /var/log/grafana
+    plugins: /var/lib/grafana/plugins
+    provisioning: /etc/grafana/provisioning
+  analytics:
+    check_for_updates: true
+  log:
+    mode: console
+  grafana_net:
+    url: https://grafana.net
+  server:
+    domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ tpl (.Values.ingress.hosts | first) . }}{{ else }}''{{ end }}"
+
 datasources:
  datasources.yaml:
    apiVersion: 1
    datasources:
-    - name: "VictoriaMetrics"
+    - name: "Prometheus"
       type: prometheus
       access: proxy
       url: http://vmauth-demo:8427/select/0/prometheus
-    - name: "Downsampled"
+      isDefault: true
+    - name: "Prometheus Downsampled"
       type: prometheus
       access: proxy
       url: http://vmauth-demo:8427/select/1/prometheus
+      isDefault: false
+    - name: "VictoriaMetrics"
+      type: victoriametrics-datasource
+      access: proxy
+      url: http://vmauth-demo:8427/select/0/prometheus
+      isDefault: false
+    - name: "VictoriaMetrics Downsampled"
+      type: victoriametrics-datasource
+      access: proxy
+      url: http://vmauth-demo:8427/select/1/prometheus
+      isDefault: false
 
 dashboardProviders:
   dashboardproviders.yaml:
@@ -36,29 +68,29 @@ dashboardProviders:
 dashboards:
   default:
     node-exporter:
-      datasource: VictoriaMetrics
+      datasource: Prometheus
       url: https://grafana.com/api/dashboards/1860/revisions/37/download
     alertmanager:
-      datasource: VictoriaMetrics
+      datasource: Prometheus
       url: https://grafana.com/api/dashboards/9578/revisions/4/download
     victoriametrics-cluster:
-      datasource: VictoriaMetrics
+      datasource: Prometheus
       url: https://grafana.com/api/dashboards/11176/revisions/37/download
     victoriametrics-vmalert:
-      datasource: VictoriaMetrics
+      datasource: Prometheus
       url: https://grafana.com/api/dashboards/14950/revisions/11/download
     victoriametrics-operator:
-      datasource: VictoriaMetrics
+      datasource: Prometheus
       url: https://grafana.com/api/dashboards/17869/revisions/2/download
     victoriametrics-vmauth:
-      datasource: VictoriaMetrics
+      datasource: Prometheus
       url: https://grafana.com/api/dashboards/21394/revisions/2/download
     prometheus-2-0:
-      datasource: VictoriaMetrics
+      datasource: Prometheus
       url: https://grafana.com/api/dashboards/3662/revisions/2/download
     blackbox-exporter_HTTP:
-      datasource: VictoriaMetrics
+      datasource: Prometheus
       url: https://grafana.com/api/dashboards/13659/revisions/1/download
     victoriametrics-vmagent:
-      datasource: VictoriaMetrics
+      datasource: Prometheus
       url: https://grafana.com/api/dashboards/12683/revisions/19/download
