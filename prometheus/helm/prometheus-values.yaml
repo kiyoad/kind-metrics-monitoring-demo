@@ -489,6 +489,16 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_container_name]
             regex: prometheus-server-configmap-reload
             action: drop
+          - source_labels:
+            - __meta_kubernetes_pod_label_app_kubernetes_io_name
+            - __meta_kubernetes_pod_container_port_number
+            regex: victoria-metrics-operator;8081
+            action: drop
+          - source_labels:
+            - __meta_kubernetes_pod_label_app_kubernetes_io_name
+            - __meta_kubernetes_pod_container_port_number
+            regex: victoria-metrics-operator;9443
+            action: drop
 
       # Example Scrape config for pods which should be scraped slower. An useful example
       # would be stackriver-exporter which queries an API on every scrape of the pod
