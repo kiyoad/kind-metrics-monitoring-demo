@@ -16,6 +16,8 @@ nodes:
     hostPort: 9090
   - containerPort: 30093
     hostPort: 9093
+  - containerPort: 30427
+    hostPort: 8427
 - role: worker
   image: kindest/node:v1.31.2@sha256:18fbefc20a7113353c7b75b5c869d7145a6abd6269154825872dc59c1329912e
   extraMounts:

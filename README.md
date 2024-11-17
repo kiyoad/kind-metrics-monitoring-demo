@@ -49,6 +49,7 @@ List of ports for browser access
 * VMAlert: `http://kindhost:8080/`
 * Prometheus: `http://kindhost:9090/`
 * Alertmanager: `http://kindhost:9093/`
+* VMUI: `http://kindhost:8427/select/0/vmui/`
 
 ## License
 
