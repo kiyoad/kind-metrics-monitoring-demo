@@ -1,3 +1,7 @@
+configmapReload:
+  prometheus:
+    image:
+      tag: v0.78.1
 server:
   image:
     tag: "v2.53.2"
