@@ -1,5 +1,11 @@
 apiVersion: kind.x-k8s.io/v1alpha4
 kind: Cluster
+
+containerdConfigPatches:
+- |-
+  [plugins."io.containerd.grpc.v1.cri".registry]
+    config_path = "/etc/containerd/certs.d"
+
 nodes:
 - role: control-plane
   # You must use the @sha256 digest to guarantee an image built for your kind version.
