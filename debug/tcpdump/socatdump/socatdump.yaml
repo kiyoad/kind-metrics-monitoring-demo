@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: socatdump
+  labels:
+    app: socatdump
+spec:
+  containers:
+  - name: socatdump
+    image: localhost:5001/socatdump:v0.0.1
+    args:
+      - "8888"
+      - "httpbin.org:80"
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8888
+        protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: socatdump
+spec:
+  selector:
+    app: socatdump
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 8888
+  type: ClusterIP

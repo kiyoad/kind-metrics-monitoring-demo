@@ -1,0 +1,21 @@
+NAMESPACE=default
+PODNAME=httpdump
+
+all:
+	@echo "Usage: make start|stop|shell|capture|cp"
+
+start:
+	kubectl apply -n $(NAMESPACE) -f manifest.yaml
+
+stop:
+	kubectl delete -n $(NAMESPACE) -f manifest.yaml
+
+shell:
+	kubectl exec -n $(NAMESPACE) -it pod/$(PODNAME) -- /bin/bash
+
+capture:
+	kubectl exec -n $(NAMESPACE) -it pod/$(PODNAME) -- /usr/bin/tcpdump -i eth0 -n -w /capture.pcap
+
+cp:
+	kubectl cp $(NAMESPACE)/$(PODNAME):capture.pcap capture.pcap
+

@@ -7,4 +7,8 @@ victoriametrics/alerts/overlays/kustomization.yaml
 victoriametrics/manifest/overlays/kustomization.yaml
 victoriametrics/downsampling/overlays/kustomization.yaml
 unused/*
-
+debug/tcpdump/manifests/*
+debug/tcpdump/httpdump/capture.pcap
+debug/tcpdump/httpdump/httpdump_v*
+debug/tcpdump/socatdump/capture.pcap
+debug/tcpdump/socatdump/socatdump_v*
