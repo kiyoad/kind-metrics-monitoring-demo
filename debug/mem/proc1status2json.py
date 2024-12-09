@@ -25,7 +25,7 @@ def parse_input_to_dict(input_data):
         elif key in {"Groups"}:
             result[key] = list(map(int, value.split()))
         elif key in {"Cpus_allowed", "Mems_allowed"}:
-            result[key] = int(value, 16) if value.startswith("0x") else int(value)
+            result[key] = value  # Keep as string
         elif key.startswith("Vm") and value.endswith("kB"):
             result[key] = int(value.replace("kB", "").strip())  # Remove "kB" and convert to int
         elif key.startswith("Rss") and value.endswith("kB"):
