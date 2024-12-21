@@ -12,7 +12,7 @@ spec:
   selectAllByDefault: true
   image:
     repository: victoriametrics/vmauth
-    tag: v1.106.1
+    tag: v1.108.1
     pullPolicy: IfNotPresent
   extraArgs:
     discoverBackendIPs: "true"
@@ -44,7 +44,6 @@ spec:
         - http://vmselect-demo-vmcluster-persistent:8481
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -63,4 +62,3 @@ spec:
     app.kubernetes.io/instance: demo
   sessionAffinity: None
   type: "NodePort"
-

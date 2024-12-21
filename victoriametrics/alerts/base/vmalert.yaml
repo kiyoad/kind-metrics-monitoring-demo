@@ -42,7 +42,6 @@ spec:
   selectAllByDefault: true
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -65,7 +64,6 @@ spec:
   type: "NodePort"
 
 ---
-
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAlert
 metadata:
@@ -78,7 +76,7 @@ metadata:
 spec:
   image:
     repository: victoriametrics/vmalert
-    tag: v1.106.1
+    tag: v1.108.1
     pullPolicy: IfNotPresent
   replicaCount: 2
   affinity:
@@ -105,7 +103,6 @@ spec:
     url: http://vmauth-demo:8427/select/0/prometheus
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -126,4 +123,3 @@ spec:
     app.kubernetes.io/instance: demo
   sessionAffinity: None
   type: "NodePort"
-

@@ -17,25 +17,25 @@ spec:
           prometheus.io/port: "8482"
       spec:
         ports:
-        - name: monitoring
-          protocol: TCP
-          port: 8482
+          - name: monitoring
+            protocol: TCP
+            port: 8482
     replicaCount: 3
     storageDataPath: "/vm-data"
     image:
       repository: victoriametrics/vmstorage
-      tag: v1.106.1-cluster
+      tag: v1.108.1-cluster
       pullPolicy: IfNotPresent
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: "app.kubernetes.io/name"
-              operator: In
-              values:
-              - "vmstorage"
-          topologyKey: "kubernetes.io/hostname"
+          - labelSelector:
+              matchExpressions:
+                - key: "app.kubernetes.io/name"
+                  operator: In
+                  values:
+                    - "vmstorage"
+            topologyKey: "kubernetes.io/hostname"
     storage:
       volumeClaimTemplate:
         metadata:
@@ -62,25 +62,25 @@ spec:
           prometheus.io/port: "8481"
       spec:
         ports:
-        - name: monitoring
-          protocol: TCP
-          port: 8481
+          - name: monitoring
+            protocol: TCP
+            port: 8481
     replicaCount: 3
     image:
       repository: victoriametrics/vmselect
-      tag: v1.106.1-cluster
+      tag: v1.108.1-cluster
       pullPolicy: IfNotPresent
     cacheMountPath: "/select-cache"
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: "app.kubernetes.io/name"
-              operator: In
-              values:
-              - "vmselect"
-          topologyKey: "kubernetes.io/hostname"
+          - labelSelector:
+              matchExpressions:
+                - key: "app.kubernetes.io/name"
+                  operator: In
+                  values:
+                    - "vmselect"
+            topologyKey: "kubernetes.io/hostname"
     storage:
       volumeClaimTemplate:
         spec:
@@ -99,24 +99,24 @@ spec:
           prometheus.io/port: "8480"
       spec:
         ports:
-        - name: monitoring
-          protocol: TCP
-          port: 8480
+          - name: monitoring
+            protocol: TCP
+            port: 8480
     replicaCount: 2
     image:
       repository: victoriametrics/vminsert
-      tag: v1.106.1-cluster
+      tag: v1.108.1-cluster
       pullPolicy: IfNotPresent
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: "app.kubernetes.io/name"
-              operator: In
-              values:
-              - "vminsert"
-          topologyKey: "kubernetes.io/hostname"
+          - labelSelector:
+              matchExpressions:
+                - key: "app.kubernetes.io/name"
+                  operator: In
+                  values:
+                    - "vminsert"
+            topologyKey: "kubernetes.io/hostname"
     resources:
       limits:
         cpu: 250m
