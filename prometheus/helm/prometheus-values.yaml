@@ -4,7 +4,7 @@ configmapReload:
       tag: v0.78.1
 server:
   image:
-    tag: "v2.53.2"
+    tag: "v2.53.3"
   remoteWrite:
     - url: http://vmauth-demo:8427/insert/0/prometheus
   affinity:
@@ -68,7 +68,7 @@ serverFiles:
       # default named port `https`. This works for single API server deployments as
       # well as HA API server deployments.
       # - job_name: 'kubernetes-apiservers'
-      - job_name: 'apiserver'
+      - job_name: "apiserver"
 
         kubernetes_sd_configs:
           - role: endpoints
@@ -98,12 +98,17 @@ serverFiles:
         # will add targets for each API server which Kubernetes adds an endpoint to
         # the default/kubernetes service.
         relabel_configs:
-          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+          - source_labels:
+              [
+                __meta_kubernetes_namespace,
+                __meta_kubernetes_service_name,
+                __meta_kubernetes_endpoint_port_name,
+              ]
             action: keep
             regex: default;kubernetes;https
 
       # - job_name: 'kubernetes-nodes'
-      - job_name: 'kubelet'
+      - job_name: "kubelet"
 
         # Default to scraping over https. If required, just disable this or change to
         # `http`.
@@ -130,9 +135,9 @@ serverFiles:
           - role: node
         relabel_configs:
           - source_labels: [__metrics_path__]
-            regex: '(.*)'
+            regex: "(.*)"
             target_label: metrics_path
-            replacement: '${1}'
+            replacement: "${1}"
             action: replace
 
         # relabel_configs:
@@ -145,9 +150,8 @@ serverFiles:
         #     target_label: __metrics_path__
         #     replacement: /api/v1/nodes/$1/proxy/metrics
 
-
       # - job_name: 'kubernetes-nodes-cadvisor'
-      - job_name: 'cadvisor'
+      - job_name: "cadvisor"
 
         # Default to scraping over https. If required, just disable this or change to
         # `http`.
@@ -175,12 +179,12 @@ serverFiles:
         metrics_path: /metrics/cadvisor
         relabel_configs:
           - source_labels: [__metrics_path__]
-            regex: '(.*)'
+            regex: "(.*)"
             target_label: metrics_path
-            replacement: '${1}'
+            replacement: "${1}"
             action: replace
           - source_labels: [__metrics_path__]
-            regex: '(.*)'
+            regex: "(.*)"
             target_label: job
             replacement: kubelet
             action: replace
@@ -246,28 +250,36 @@ serverFiles:
       # service then set this appropriately.
       # * `prometheus.io/param_<parameter>`: If the metrics endpoint uses parameters
       # then you can set any parameter
-      - job_name: 'kubernetes-service-endpoints'
+      - job_name: "kubernetes-service-endpoints"
         honor_labels: true
 
         kubernetes_sd_configs:
           - role: endpoints
 
         relabel_configs:
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+          - source_labels:
+              [__meta_kubernetes_service_annotation_prometheus_io_scrape]
             action: keep
             regex: true
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape_slow]
+          - source_labels:
+              [__meta_kubernetes_service_annotation_prometheus_io_scrape_slow]
             action: drop
             regex: true
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+          - source_labels:
+              [__meta_kubernetes_service_annotation_prometheus_io_scheme]
             action: replace
             target_label: __scheme__
             regex: (https?)
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+          - source_labels:
+              [__meta_kubernetes_service_annotation_prometheus_io_path]
             action: replace
             target_label: __metrics_path__
             regex: (.+)
-          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+          - source_labels:
+              [
+                __address__,
+                __meta_kubernetes_service_annotation_prometheus_io_port,
+              ]
             action: replace
             target_label: __address__
             regex: (.+?)(?::\d+)?;(\d+)
@@ -286,42 +298,50 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_node_name]
             action: replace
             target_label: node
-          - source_labels: [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
+          - source_labels:
+              [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
             target_label: job
             regex: kube-state-metrics
             replacement: kube-state-metrics
             action: replace
-          - source_labels: [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
+          - source_labels:
+              [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
             target_label: job
             regex: prometheus-node-exporter
             replacement: node-exporter
             action: replace
-          - source_labels: [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
+          - source_labels:
+              [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
             target_label: job
             regex: vminsert
             replacement: vminsert
             action: replace
-          - source_labels: [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
+          - source_labels:
+              [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
             target_label: job
             regex: vmstorage
             replacement: vmstorage
             action: replace
-          - source_labels: [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
+          - source_labels:
+              [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
             target_label: job
             regex: vmselect
             replacement: vmselect
             action: replace
-          - source_labels: [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
+          - source_labels:
+              [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
             target_label: job
             regex: vmalert
             replacement: vmalert
             action: replace
-          - source_labels: [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
+          - source_labels:
+              [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
             target_label: job
             regex: vmalertmanager
             replacement: alertmanager-main
             action: replace
-          - source_labels: [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
+          - source_labels:
+              [__meta_kubernetes_endpoints_label_app_kubernetes_io_name]
             target_label: job
             regex: vmauth
             replacement: vmauth
@@ -341,7 +361,7 @@ serverFiles:
       # service then set this appropriately.
       # * `prometheus.io/param_<parameter>`: If the metrics endpoint uses parameters
       # then you can set any parameter
-      - job_name: 'kubernetes-service-endpoints-slow'
+      - job_name: "kubernetes-service-endpoints-slow"
         honor_labels: true
 
         scrape_interval: 5m
@@ -351,18 +371,25 @@ serverFiles:
           - role: endpoints
 
         relabel_configs:
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape_slow]
+          - source_labels:
+              [__meta_kubernetes_service_annotation_prometheus_io_scrape_slow]
             action: keep
             regex: true
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+          - source_labels:
+              [__meta_kubernetes_service_annotation_prometheus_io_scheme]
             action: replace
             target_label: __scheme__
             regex: (https?)
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+          - source_labels:
+              [__meta_kubernetes_service_annotation_prometheus_io_path]
             action: replace
             target_label: __metrics_path__
             regex: (.+)
-          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+          - source_labels:
+              [
+                __address__,
+                __meta_kubernetes_service_annotation_prometheus_io_port,
+              ]
             action: replace
             target_label: __address__
             regex: (.+?)(?::\d+)?;(\d+)
@@ -382,14 +409,15 @@ serverFiles:
             action: replace
             target_label: node
 
-      - job_name: 'prometheus-pushgateway'
+      - job_name: "prometheus-pushgateway"
         honor_labels: true
 
         kubernetes_sd_configs:
           - role: service
 
         relabel_configs:
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_probe]
+          - source_labels:
+              [__meta_kubernetes_service_annotation_prometheus_io_probe]
             action: keep
             regex: pushgateway
 
@@ -399,7 +427,7 @@ serverFiles:
       # via the following annotations:
       #
       # * `prometheus.io/probe`: Only probe services that have a value of `true`
-      - job_name: 'kubernetes-services'
+      - job_name: "kubernetes-services"
         honor_labels: true
 
         metrics_path: /probe
@@ -410,7 +438,8 @@ serverFiles:
           - role: service
 
         relabel_configs:
-          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_probe]
+          - source_labels:
+              [__meta_kubernetes_service_annotation_prometheus_io_probe]
             action: keep
             regex: true
           - source_labels: [__address__]
@@ -437,20 +466,23 @@ serverFiles:
       # to set this to `https` & most likely set the `tls_config` of the scrape config.
       # * `prometheus.io/path`: If the metrics path is not `/metrics` override this.
       # * `prometheus.io/port`: Scrape the pod on the indicated port instead of the default of `9102`.
-      - job_name: 'kubernetes-pods'
+      - job_name: "kubernetes-pods"
         honor_labels: true
 
         kubernetes_sd_configs:
           - role: pod
 
         relabel_configs:
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+          - source_labels:
+              [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
             action: keep
             regex: true
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape_slow]
+          - source_labels:
+              [__meta_kubernetes_pod_annotation_prometheus_io_scrape_slow]
             action: drop
             regex: true
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
+          - source_labels:
+              [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
             action: replace
             regex: (https?)
             target_label: __scheme__
@@ -458,12 +490,20 @@ serverFiles:
             action: replace
             target_label: __metrics_path__
             regex: (.+)
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_port, __meta_kubernetes_pod_ip]
+          - source_labels:
+              [
+                __meta_kubernetes_pod_annotation_prometheus_io_port,
+                __meta_kubernetes_pod_ip,
+              ]
             action: replace
             regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
-            replacement: '[$2]:$1'
+            replacement: "[$2]:$1"
             target_label: __address__
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_port, __meta_kubernetes_pod_ip]
+          - source_labels:
+              [
+                __meta_kubernetes_pod_annotation_prometheus_io_port,
+                __meta_kubernetes_pod_ip,
+              ]
             action: replace
             regex: (\d+);((([0-9]+?)(\.|$)){4})
             replacement: $2:$1
@@ -494,13 +534,13 @@ serverFiles:
             regex: prometheus-server-configmap-reload
             action: drop
           - source_labels:
-            - __meta_kubernetes_pod_label_app_kubernetes_io_name
-            - __meta_kubernetes_pod_container_port_number
+              - __meta_kubernetes_pod_label_app_kubernetes_io_name
+              - __meta_kubernetes_pod_container_port_number
             regex: victoria-metrics-operator;8081
             action: drop
           - source_labels:
-            - __meta_kubernetes_pod_label_app_kubernetes_io_name
-            - __meta_kubernetes_pod_container_port_number
+              - __meta_kubernetes_pod_label_app_kubernetes_io_name
+              - __meta_kubernetes_pod_container_port_number
             regex: victoria-metrics-operator;9443
             action: drop
 
@@ -515,7 +555,7 @@ serverFiles:
       # to set this to `https` & most likely set the `tls_config` of the scrape config.
       # * `prometheus.io/path`: If the metrics path is not `/metrics` override this.
       # * `prometheus.io/port`: Scrape the pod on the indicated port instead of the default of `9102`.
-      - job_name: 'kubernetes-pods-slow'
+      - job_name: "kubernetes-pods-slow"
         honor_labels: true
 
         scrape_interval: 5m
@@ -525,10 +565,12 @@ serverFiles:
           - role: pod
 
         relabel_configs:
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape_slow]
+          - source_labels:
+              [__meta_kubernetes_pod_annotation_prometheus_io_scrape_slow]
             action: keep
             regex: true
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
+          - source_labels:
+              [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
             action: replace
             regex: (https?)
             target_label: __scheme__
@@ -536,12 +578,20 @@ serverFiles:
             action: replace
             target_label: __metrics_path__
             regex: (.+)
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_port, __meta_kubernetes_pod_ip]
+          - source_labels:
+              [
+                __meta_kubernetes_pod_annotation_prometheus_io_port,
+                __meta_kubernetes_pod_ip,
+              ]
             action: replace
             regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
-            replacement: '[$2]:$1'
+            replacement: "[$2]:$1"
             target_label: __address__
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_port, __meta_kubernetes_pod_ip]
+          - source_labels:
+              [
+                __meta_kubernetes_pod_annotation_prometheus_io_port,
+                __meta_kubernetes_pod_ip,
+              ]
             action: replace
             regex: (\d+);((([0-9]+?)(\.|$)){4})
             replacement: $2:$1
@@ -584,4 +634,3 @@ prometheus-node-exporter:
 
 prometheus-pushgateway:
   enabled: false
-
