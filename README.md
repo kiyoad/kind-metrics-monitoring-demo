@@ -15,7 +15,7 @@ However, since it is a demo, it will be run on kind
   * kindest/node:v1.31.0 or above
 * kubectl(+kustomize)
 * helm
-* bash,sed,head,base64,rm,curl,unzip,watch,git
+* bash,sed,head,base64,rm,curl,unzip,watch,git,GNU make
 
 ### Installing
 
@@ -40,7 +40,6 @@ How to start it
    7. Start node-exporter, kube-state-metrics, mailpit and avalanche.
    8. Start Prometheus.
    9. Start Grafana.
-
 
 List of ports for browser access
 
@@ -70,4 +69,3 @@ Inspiration, code snippets, etc.
 * Helm
   * [Prometheus](https://github.com/prometheus-community/helm-charts)
   * [Grafana](https://github.com/grafana/helm-charts)
-
