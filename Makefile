@@ -79,7 +79,7 @@ kind_stop:
 
 kind_remove:
 	@(cd kind && bash -c ./stop.sh)
-	@(cd kind/storage && rm -rf worker[1234])
+	@(cd kind/storage && sudo rm -rf worker[1234])
 
 # storage
 
