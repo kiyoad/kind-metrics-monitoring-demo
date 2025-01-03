@@ -30,7 +30,7 @@ The namespace in the demo is `monitoring`.
 How to start it
 
 1. `$ cd kind-metrics-monitoring-demo`
-1. `$ ./start.sh`
+1. `$ make start`
    1. Start kind ~~with Calico embedded in the prepared cluster settingsi~~.
    2. Prepare a PersistentVolume in the local file system for VMCluster.
    3. If you haven't already, get VictoriaMetrics Operator.
