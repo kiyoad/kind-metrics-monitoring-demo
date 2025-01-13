@@ -68,6 +68,20 @@ avalanche-only_stop: \
 	kind_stop
 	@echo "Stop avalanche only."
 
+minimum_start: \
+	kind_start \
+	storage_start \
+	namespace_start \
+	vmoperator_start
+	@echo "Start minimum."
+
+minimum_stop: \
+	vmoperator_stop \
+	namespace_stop \
+	storage_stop \
+	kind_stop
+	@echo "Stop minimum."
+
 # kind
 
 kind_start:
