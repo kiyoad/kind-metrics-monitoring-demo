@@ -10,7 +10,9 @@ if [ "$(docker inspect -f '{{.State.Running}}' "${reg_name}" 2>/dev/null || true
     registry:2
 fi
 
-sed "s|%STORAGE_PATH%|$(pwd)|" cluster_tmpl.yaml | kind create cluster --config -
+./makepv.sh
+cat ./kindcontrolnode.yaml ./kindworkernode.yaml | kind create cluster --config -
+rm -f ./kindworkernode.yaml
 
 # Add the registry config to the nodes
 REGISTRY_DIR="/etc/containerd/certs.d/localhost:${reg_port}"
@@ -39,10 +41,8 @@ data:
     help: "https://kind.sigs.k8s.io/docs/user/local-registry/"
 EOF
 
-while kubectl get pods --no-headers -A | grep -v Pending | grep -v Running > /dev/null
-do
+while kubectl get pods --no-headers -A | grep -v Pending | grep -v Running >/dev/null; do
   watch -g kubectl get pods -A
 done
 
 kubectl wait -A --for=condition=Ready pod --all
-

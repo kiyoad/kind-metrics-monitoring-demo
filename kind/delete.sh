@@ -1,3 +1,3 @@
 #!/bin/bash
 set -euxo pipefail
-kubectl delete -f pv.yaml --timeout=10s || true
+kubectl delete -f pvconf.yaml --timeout=10s || true

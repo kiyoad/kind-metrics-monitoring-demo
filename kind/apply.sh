@@ -1,4 +1,3 @@
 #!/bin/bash
 set -euxo pipefail
-kubectl apply -f pv.yaml
-
+kubectl apply -f pvconf.yaml
