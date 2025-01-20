@@ -3,6 +3,7 @@ set -euo pipefail
 
 MAXNODENUM=4
 MAXVOLNUM=4
+# /pv1 /pv2 /pv3 /pv4
 NODE1=(1 1 1 0)
 NODE2=(1 1 1 0)
 NODE3=(1 1 0 0)
