@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-cat << EOF > overlays/kustomization.yaml
+cat <<EOF >overlays/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
@@ -9,5 +9,4 @@ resources:
 namespace: $(../../namespace/get.sh)
 EOF
 
-kubectl kustomize overlays | ./vmalert-vmalertmanager-patcher.sh | kubectl apply -f -
-
+kubectl apply --kustomize=overlays
