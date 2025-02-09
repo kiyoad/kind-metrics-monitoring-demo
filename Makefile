@@ -10,6 +10,8 @@ start: \
 	storage_start \
 	namespace_start \
 	vmoperator_start \
+	victorialogs_start \
+	fluent-bit_start \
 	vmalert_start \
 	vmcluster_start \
 	downsample_start \
@@ -33,6 +35,8 @@ stop: \
 	downsample_stop \
 	vmcluster_stop \
 	vmalert_stop \
+	fluent-bit_stop \
+	victorialogs_stop \
 	vmoperator_stop \
 	namespace_stop \
 	storage_stop \
@@ -212,4 +216,20 @@ avalanche_start: namespace_start
 
 avalanche_stop:
 	@[ -f .avalanche_running ] && (cd avalanche/manifest && bash -c ./delete.sh) && rm -f .avalanche_running || true
+
+# VictoriaLogs
+
+victorialogs_start: vmoperator_start storage_start
+	@[ -f .victorialogs_running ] || ((cd victoriametrics/vlogs && bash -c ./apply.sh) && touch .victorialogs_running)
+
+victorialogs_stop:
+	@[ -f .victorialogs_running ] && (cd victoriametrics/vlogs && bash -c ./delete.sh) && rm -f .victorialogs_running || true
+
+# fluent-bit
+
+fluent-bit_start: namespace_start
+	@[ -f .fluent-bit_running ] || ((cd fluent-bit/manifest && bash -c ./apply.sh) && touch .fluent-bit_running)
+
+fluent-bit_stop:
+	@[ -f .fluent-bit_running ] && (cd fluent-bit/manifest && bash -c ./delete.sh) && rm -f .fluent-bit_running || true
 
