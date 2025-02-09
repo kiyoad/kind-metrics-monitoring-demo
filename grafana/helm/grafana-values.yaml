@@ -22,48 +22,49 @@ grafana.ini:
     check_for_updates: true
   log:
     mode: console
+    level: warn
   grafana_net:
     url: https://grafana.net
   server:
     domain: "{{ if (and .Values.ingress.enabled .Values.ingress.hosts) }}{{ tpl (.Values.ingress.hosts | first) . }}{{ else }}''{{ end }}"
 
 datasources:
- datasources.yaml:
-   apiVersion: 1
-   datasources:
-    - name: "Prometheus"
-      type: prometheus
-      access: proxy
-      url: http://vmauth-demo:8427/select/0/prometheus
-      isDefault: true
-    - name: "Prometheus Downsampled"
-      type: prometheus
-      access: proxy
-      url: http://vmauth-demo:8427/select/1/prometheus
-      isDefault: false
-    - name: "VictoriaMetrics"
-      type: victoriametrics-datasource
-      access: proxy
-      url: http://vmauth-demo:8427/select/0/prometheus
-      isDefault: false
-    - name: "VictoriaMetrics Downsampled"
-      type: victoriametrics-datasource
-      access: proxy
-      url: http://vmauth-demo:8427/select/1/prometheus
-      isDefault: false
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: "Prometheus"
+        type: prometheus
+        access: proxy
+        url: http://vmauth-demo:8427/select/0/prometheus
+        isDefault: true
+      - name: "Prometheus Downsampled"
+        type: prometheus
+        access: proxy
+        url: http://vmauth-demo:8427/select/1/prometheus
+        isDefault: false
+      - name: "VictoriaMetrics"
+        type: victoriametrics-datasource
+        access: proxy
+        url: http://vmauth-demo:8427/select/0/prometheus
+        isDefault: false
+      - name: "VictoriaMetrics Downsampled"
+        type: victoriametrics-datasource
+        access: proxy
+        url: http://vmauth-demo:8427/select/1/prometheus
+        isDefault: false
 
 dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1
     providers:
-    - name: 'default'
-      orgId: 1
-      folder: ''
-      type: file
-      disableDeletion: false
-      editable: true
-      options:
-        path: /var/lib/grafana/dashboards/default
+      - name: "default"
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
 
 dashboards:
   default:
@@ -94,3 +95,9 @@ dashboards:
     victoriametrics-vmagent:
       datasource: Prometheus
       url: https://grafana.com/api/dashboards/12683/revisions/19/download
+    victorialogs:
+      datasource: Prometheus
+      url: https://grafana.com/api/dashboards/22084/revisions/3/download
+    fluent-bit:
+      datasource: Prometheus
+      url: https://raw.githubusercontent.com/fluent/fluent-bit-docs/refs/heads/master/monitoring/dashboard.json
