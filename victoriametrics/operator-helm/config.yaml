@@ -33,7 +33,7 @@ crd:
       # use image tag that matches k8s API version by default
       tag: ""
       pullPolicy: IfNotPresent
-    
+
 replicaCount: 1
 
 # -- Secret to pull images
@@ -47,7 +47,7 @@ fullnameOverride: ""
 
 # -- VM operator log level
 # -- possible values: info and error.
-logLevel: "info"
+logLevel: "error"
 
 rbac:
   # -- Specifies whether the RBAC resources should be created
@@ -246,4 +246,3 @@ probe:
 
 # -- Add extra specs dynamically to this chart
 extraObjects: []
-
