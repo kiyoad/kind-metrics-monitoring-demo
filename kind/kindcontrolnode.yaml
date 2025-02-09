@@ -24,3 +24,5 @@ nodes:
         hostPort: 9093
       - containerPort: 30427
         hostPort: 8427
+      - containerPort: 30428
+        hostPort: 9428
