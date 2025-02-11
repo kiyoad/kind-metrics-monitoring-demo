@@ -76,13 +76,13 @@ dashboards:
       url: https://grafana.com/api/dashboards/9578/revisions/4/download
     victoriametrics-cluster:
       datasource: Prometheus
-      url: https://grafana.com/api/dashboards/11176/revisions/37/download
+      url: https://grafana.com/api/dashboards/11176/revisions/39/download
     victoriametrics-vmalert:
       datasource: Prometheus
-      url: https://grafana.com/api/dashboards/14950/revisions/11/download
+      url: https://grafana.com/api/dashboards/14950/revisions/13/download
     victoriametrics-operator:
       datasource: Prometheus
-      url: https://grafana.com/api/dashboards/17869/revisions/2/download
+      url: https://grafana.com/api/dashboards/17869/revisions/3/download
     victoriametrics-vmauth:
       datasource: Prometheus
       url: https://grafana.com/api/dashboards/21394/revisions/2/download
@@ -94,7 +94,7 @@ dashboards:
       url: https://grafana.com/api/dashboards/13659/revisions/1/download
     victoriametrics-vmagent:
       datasource: Prometheus
-      url: https://grafana.com/api/dashboards/12683/revisions/19/download
+      url: https://grafana.com/api/dashboards/12683/revisions/21/download
     victorialogs:
       datasource: Prometheus
       url: https://grafana.com/api/dashboards/22084/revisions/3/download
