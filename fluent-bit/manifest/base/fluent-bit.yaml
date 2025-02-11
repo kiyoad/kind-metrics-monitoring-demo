@@ -34,7 +34,7 @@ spec:
       serviceAccountName: fluent-bit
       containers:
         - name: fluent-bit
-          image: fluent/fluent-bit:3.2.4
+          image: fluent/fluent-bit:3.2.5
           livenessProbe:
             httpGet:
               path: /api/v1/health
@@ -86,8 +86,8 @@ data:
     [FILTER]
         Name         kubernetes
         Match        kube.*
-        Kube_URL     https://kubernetes.default.svc:443
         Merge_Log    On
+        Merge_Log_Key log_processed
         Keep_Log     Off
 
     [FILTER]
@@ -106,7 +106,8 @@ data:
 
   parsers.conf: |
     [PARSER]
-        Name   docker
-        Format json
-        Time_Key time
-        Time_Format %Y-%m-%dT%H:%M:%S.%L
+        Name         docker
+        Format       json
+        Time_Key     time
+        Time_Format  %Y-%m-%dT%H:%M:%S.%L
+        Time_Keep    On
