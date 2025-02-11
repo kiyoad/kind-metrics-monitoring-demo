@@ -1,8 +1,14 @@
 configmapReload:
   prometheus:
+    extraArgs:
+      log-level: warn
+      #log-format: json
     image:
-      tag: "v0.78.2"
+      tag: "v0.79.2"
 server:
+  extraArgs:
+    log.level: warn
+    #log.format: json
   image:
     tag: "v2.53.3"
   remoteWrite:
