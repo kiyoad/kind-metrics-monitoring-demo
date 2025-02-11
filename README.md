@@ -31,15 +31,14 @@ How to start it
 
 1. `$ cd kind-metrics-monitoring-demo`
 1. `$ make start`
-   1. Start kind ~~with Calico embedded in the prepared cluster settingsi~~.
-   2. Prepare a PersistentVolume in the local file system for VMCluster.
-   3. If you haven't already, get VictoriaMetrics Operator.
-   4. Start VictoriaMetrics Operator.
-   5. Register the configuration VMRule and VMAlertmanagerConfig for VictoriaMetrics.
-   6. Start VMCluster, VMAuth, VMAlert and VMAlertmanager.
-   7. Start node-exporter, kube-state-metrics, mailpit and avalanche.
-   8. Start Prometheus.
-   9. Start Grafana.
+   1. Start kind ~~with Calico embedded in the prepared cluster settings~~.
+   2. Prepare a PersistentVolume in the local file system.
+   3. Start VictoriaMetrics Operator.
+   4. Start VictoriaLogs and Fluent Bit.
+   5. Start VMCluster, VMAuth, VMAlert, VMAlertmanager and VMAgent.
+   6. Start mailpit.
+   7. Start Prometheus and Grafana.
+   8. Start node-exporter, kube-state-metrics, pushgateway and blackbox-exporter.
 
 List of ports for browser access
 
@@ -48,7 +47,8 @@ List of ports for browser access
 * VMAlert: `http://kindhost:8080/`
 * Prometheus: `http://kindhost:9090/`
 * Alertmanager: `http://kindhost:9093/`
-* VMUI: `http://kindhost:8427/select/0/vmui/`
+* VMUI(VictoriaMetrics): `http://kindhost:8427/select/0/vmui/`
+* VMUI(VictoriaLogs): `http://kindhost:9428/select/vmui/`
 
 ## License
 
@@ -66,6 +66,7 @@ Inspiration, code snippets, etc.
 * [Grafana](https://grafana.com)
 * [Mailpit](https://mailpit.axllent.org)
 * [Avalanche](https://github.com/prometheus-community/avalanche)
+* [Fluent Bit](https://fluentbit.io/)
 * Helm
   * [Prometheus](https://github.com/prometheus-community/helm-charts)
   * [Grafana](https://github.com/grafana/helm-charts)
