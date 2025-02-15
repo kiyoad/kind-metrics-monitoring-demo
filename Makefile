@@ -228,8 +228,8 @@ victorialogs_stop:
 # fluent-bit
 
 fluent-bit_start: namespace_start
-	@[ -f .fluent-bit_running ] || ((cd fluent-bit/manifest && bash -c ./apply.sh) && touch .fluent-bit_running)
+	@[ -f .fluent-bit_running ] || ((cd fluent-bit/helm && bash -c ./install.sh) && touch .fluent-bit_running)
 
 fluent-bit_stop:
-	@[ -f .fluent-bit_running ] && (cd fluent-bit/manifest && bash -c ./delete.sh) && rm -f .fluent-bit_running || true
+	@[ -f .fluent-bit_running ] && (cd fluent-bit/helm && bash -c ./uninstall.sh) && rm -f .fluent-bit_running || true
 
