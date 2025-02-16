@@ -43,12 +43,12 @@ datasources:
         url: http://vmauth-demo:8427/select/1/prometheus
         isDefault: false
       - name: "VictoriaMetrics"
-        type: victoriametrics-datasource
+        type: victoriametrics-metrics-datasource
         access: proxy
         url: http://vmauth-demo:8427/select/0/prometheus
         isDefault: false
       - name: "VictoriaMetrics Downsampled"
-        type: victoriametrics-datasource
+        type: victoriametrics-metrics-datasource
         access: proxy
         url: http://vmauth-demo:8427/select/1/prometheus
         isDefault: false
