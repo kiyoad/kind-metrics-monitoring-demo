@@ -68,5 +68,7 @@ Inspiration, code snippets, etc.
 * [Avalanche](https://github.com/prometheus-community/avalanche)
 * [Fluent Bit](https://fluentbit.io/)
 * Helm
+  * [VictoriaMetrics](https://github.com/VictoriaMetrics/helm-charts)
   * [Prometheus](https://github.com/prometheus-community/helm-charts)
   * [Grafana](https://github.com/grafana/helm-charts)
+  * [Fluent](https://github.com/fluent/helm-charts)
