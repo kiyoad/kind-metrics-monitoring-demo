@@ -26,7 +26,7 @@ spec:
     storageDataPath: "/vm-data"
     image:
       repository: victoriametrics/vmstorage
-      tag: v1.108.1-cluster
+      tag: v1.111.0-cluster
       pullPolicy: IfNotPresent
     affinity:
       podAntiAffinity:
@@ -72,7 +72,7 @@ spec:
     replicaCount: 3
     image:
       repository: victoriametrics/vmselect
-      tag: v1.108.1-cluster
+      tag: v1.111.0-cluster
       pullPolicy: IfNotPresent
     cacheMountPath: "/select-cache"
     affinity:
@@ -112,7 +112,7 @@ spec:
     replicaCount: 2
     image:
       repository: victoriametrics/vminsert
-      tag: v1.108.1-cluster
+      tag: v1.111.0-cluster
       pullPolicy: IfNotPresent
     affinity:
       podAntiAffinity:

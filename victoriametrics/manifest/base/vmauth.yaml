@@ -12,7 +12,7 @@ spec:
   selectAllByDefault: true
   image:
     repository: victoriametrics/vmauth
-    tag: v1.108.1
+    tag: v1.111.0
     pullPolicy: IfNotPresent
   extraArgs:
     #loggerFormat: "json"

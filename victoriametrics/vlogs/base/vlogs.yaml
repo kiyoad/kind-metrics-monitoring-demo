@@ -21,7 +21,7 @@ spec:
   futureRetention: "2d"
   image:
     repository: victoriametrics/victoria-logs
-    tag: v1.9.1-victorialogs
+    tag: v1.10.1-victorialogs
     pullPolicy: IfNotPresent
   logIngestedRows: false
   logNewStreams: false
