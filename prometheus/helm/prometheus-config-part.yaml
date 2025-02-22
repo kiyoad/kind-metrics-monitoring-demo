@@ -1,0 +1,65 @@
+alertmanager:
+  enabled: false
+
+kube-state-metrics:
+  enabled: false
+
+prometheus-node-exporter:
+  enabled: false
+
+prometheus-pushgateway:
+  enabled: false
+
+configmapReload:
+  prometheus:
+    extraArgs:
+      log-level: warn
+      #log-format: json
+    image:
+      tag: "v0.79.2"
+server:
+  extraArgs:
+    log.level: warn
+    #log.format: json
+  image:
+    tag: "v2.53.3"
+  remoteWrite:
+    - url: http://vmauth-demo:8427/insert/0/prometheus
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - prometheus
+          topologyKey: kubernetes.io/hostname
+  persistentVolume:
+    enabled: false
+    #    enabled: true
+    #    storageClass: "local-storage3"
+  replicaCount: 2
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
+  statefulSet:
+    enabled: false
+    #    enabled: true
+  resources:
+    limits:
+      cpu: 125m
+      memory: 1024Mi
+  service:
+    type: NodePort
+    nodePort: 30090
+    statefulsetReplica:
+      enabled: true
+      replica: 0
+    annotations:
+      prometheus.io/probe: "true"
+  global:
+    evaluation_interval: 1m
+    scrape_interval: 1m
+    scrape_timeout: 10s
+  retention: "1d"

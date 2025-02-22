@@ -158,16 +158,16 @@ mailpit_stop:
 # Prometheus
 
 prometheus_start: namespace_start
-	@[ -f .prometheus_running ] || ((cd prometheus/helm && bash -c ./install.sh)  && touch .prometheus_running)
+	@[ -f .prometheus_running ] || ((cd prometheus/helm && bash -c "./install.sh default")  && touch .prometheus_running)
 
 prometheus_stop:
-	@[ -f .prometheus_running ] && (cd prometheus/helm && bash -c ./uninstall.sh) && rm -f .prometheus_running || true
+	@[ -f .prometheus_running ] && (cd prometheus/helm && bash -c "./uninstall.sh default") && rm -f .prometheus_running || true
 
 prometheus_avalanche_only_start: namespace_start
-	@[ -f .prometheus_avalanche_only_running ] || ((cd prometheus/avalanche-only-helm && bash -c ./install.sh)  && touch .prometheus_avalanche_only_running)
+	@[ -f .prometheus_avalanche_only_running ] || ((cd prometheus/helm && bash -c "./install.sh avalanche-only")  && touch .prometheus_avalanche_only_running)
 
 prometheus_avalanche_only_stop:
-	@[ -f .prometheus_avalanche_only_running ] && (cd prometheus/avalanche-only-helm && bash -c ./uninstall.sh) && rm -f .prometheus_avalanche_only_running || true
+	@[ -f .prometheus_avalanche_only_running ] && (cd prometheus/helm && bash -c "./uninstall.sh avalanche-only") && rm -f .prometheus_avalanche_only_running || true
 
 # Grafana
 
