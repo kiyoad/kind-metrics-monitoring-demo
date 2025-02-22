@@ -1,6 +1,9 @@
 adminUser: admin
 adminPassword: adminadmin
 
+testFramework:
+  enabled: false
+
 service:
   type: NodePort
   nodePort: 30000
