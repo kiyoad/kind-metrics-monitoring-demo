@@ -48,7 +48,8 @@ podAnnotations: {}
 podLabels: {}
 
 # Optional service annotations
-serviceAnnotations: {}
+serviceAnnotations:
+  prometheus.io/probe: "pushgateway"
 
 # Optional service labels
 serviceLabels: {}
@@ -75,7 +76,8 @@ extraArgs: []
 extraInitContainers: []
 
 # Optional additional containers (sidecar)
-extraContainers: []
+extraContainers:
+  []
   # - name: oAuth2-proxy
   #   args:
   #     - -https-address=:9092
@@ -96,7 +98,8 @@ extraContainers: []
   #     - mountPath: /etc/prometheus/secrets/pushgateway-tls
   #       name: secret-pushgateway-tls
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -110,7 +113,8 @@ resources: {}
 
 # -- Sets web configuration
 # To enable basic authentication, provide basicAuthUsers as a map
-webConfiguration: {}
+webConfiguration:
+  {}
   # basicAuthUsers:
   #   username: password
 
@@ -179,7 +183,8 @@ ingress:
   #     hosts:
   #       - pushgateway.domain.com
 
-tolerations: []
+tolerations:
+  []
   # - effect: NoSchedule
   #   operator: Exists
 
@@ -190,7 +195,8 @@ nodeSelector: {}
 
 replicaCount: 1
 
-hostAliases: []
+hostAliases:
+  []
   # - ip: "127.0.0.1"
   #   hostnames:
   #   - "foo.local"
@@ -344,10 +350,12 @@ persistentVolume:
   ##
   subPath: ""
 
-extraVolumes: []
+extraVolumes:
+  []
   # - name: extra
   #   emptyDir: {}
-extraVolumeMounts: []
+extraVolumeMounts:
+  []
   # - name: extra
   #   mountPath: /usr/share/extras
   #   readOnly: true
@@ -356,7 +364,8 @@ extraVolumeMounts: []
 # - allowAll allows access to the PushGateway from any namespace
 # - customSelector is a list of pod/namespaceSelectors to allow access from
 # These options are mutually exclusive and the latter will take precedence.
-networkPolicy: {}
+networkPolicy:
+  {}
   # allowAll: true
   # customSelectors:
   #   - namespaceSelector:
@@ -369,4 +378,3 @@ networkPolicy: {}
 # Array of extra K8s objects to deploy (evaluated as a template)
 # The value can hold an array of strings as well as objects
 extraManifests: []
-
