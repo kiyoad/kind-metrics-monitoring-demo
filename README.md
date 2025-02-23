@@ -46,6 +46,7 @@ List of ports for browser access
 * Mailpit: `http://kindhost:8025/`
 * VMAlert: `http://kindhost:8080/`
 * Prometheus: `http://kindhost:9090/`
+* Pushgateway: `http://kindhost:9091/`
 * Alertmanager: `http://kindhost:9093/`
 * VMUI(VictoriaMetrics): `http://kindhost:8427/select/0/vmui/`
 * VMUI(VictoriaLogs): `http://kindhost:9428/select/vmui/`

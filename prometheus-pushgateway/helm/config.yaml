@@ -21,10 +21,10 @@ image:
 imagePullSecrets: []
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 9091
   targetPort: 9091
-  # nodePort: 32100
+  nodePort: 30091
   portName: http
 
   # Optional - Can be used for headless if value is "None"
