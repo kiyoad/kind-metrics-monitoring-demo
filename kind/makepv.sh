@@ -24,7 +24,7 @@ IMAGE=$(${SED} -n -e "s|image: \(.*\)|\\1|p" kindcontrolnode.yaml | xargs)
 rm -f ${PVCONF} ${KINDWORKERCONF}
 for ((NODENUM = 1; NODENUM <= ${MAXNODENUM}; NODENUM++)); do
   for ((VOLNUM = 1; VOLNUM <= ${MAXVOLNUM}; VOLNUM++)); do
-    INDEX=$(((NODENUM - 1) * MAXNODENUM + (VOLNUM - 1)))
+    INDEX=$(((NODENUM - 1) * MAXVOLNUM + (VOLNUM - 1)))
     if [[ "${NODEMATRIX[$INDEX]}" == "1" ]]; then
       cat <<EOF >>${PVCONF}
 apiVersion: v1
