@@ -2,12 +2,12 @@
 set -euo pipefail
 
 MAXNODENUM=4
-MAXVOLNUM=4
-# /pv1 /pv2 /pv3 /pv4
-NODE1=(1 1 1 0)
-NODE2=(1 1 1 0)
-NODE3=(1 1 0 0)
-NODE4=(0 0 0 1)
+MAXVOLNUM=5
+# /pv1 /pv2 /pv3 /pv4 /pv5
+NODE1=(1 1 1 0 0)
+NODE2=(1 1 1 0 0)
+NODE3=(1 1 0 0 1)
+NODE4=(0 0 0 1 0)
 IFS=' ' read -r -a NODEMATRIX <<<"${NODE1[*]} ${NODE2[*]} ${NODE3[*]} ${NODE4[*]}"
 
 PVCONF=pvconf.yaml
