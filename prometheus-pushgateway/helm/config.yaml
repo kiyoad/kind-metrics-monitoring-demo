@@ -69,7 +69,9 @@ extraVars: []
 ## extraArgs:
 ##  - --persistence.file=/data/pushgateway.data
 ##  - --persistence.interval=5m
-extraArgs: []
+extraArgs:
+  - --persistence.file=/data/pushgateway.data
+  - --persistence.interval=5m
 
 ## Additional InitContainers to initialize the pod
 ##
@@ -310,7 +312,7 @@ persistentVolume:
   ## If true, pushgateway will create/use a Persistent Volume Claim
   ## If false, use emptyDir
   ##
-  enabled: false
+  enabled: true
 
   ## pushgateway data Persistent Volume access modes
   ## Must match those of existing PV or dynamic provisioner
@@ -343,7 +345,7 @@ persistentVolume:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  # storageClass: "-"
+  storageClass: "local-storage5"
 
   ## Subdirectory of pushgateway data Persistent Volume to mount
   ## Useful if the volume's root directory is not empty
