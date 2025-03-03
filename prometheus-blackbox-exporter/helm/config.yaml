@@ -17,7 +17,8 @@ kubeVersionOverride: ""
 ## set to true to add the release label so scraping of the servicemonitor with kube-prometheus-stack works out of the box
 releaseLabel: false
 
-podDisruptionBudget: {}
+podDisruptionBudget:
+  {}
   # maxUnavailable: 0
 
 ## Allow automount the serviceaccount token for sidecar container (eg: oauthproxy)
@@ -37,7 +38,8 @@ extraEnv: {}
 ##   - secretTwo
 extraEnvFromSecret: ""
 
-extraVolumes: []
+extraVolumes:
+  []
   # - name: secret-blackbox-oauth-htpasswd
   #   secret:
   #     defaultMode: 420
@@ -58,7 +60,8 @@ extraInitContainers: []
 ## This supports either a structured array or a templatable string
 
 # Array mode
-extraContainers: []
+extraContainers:
+  []
   # - name: oAuth2-proxy
   #   args:
   #     - -https-address=:9116
@@ -147,7 +150,8 @@ affinity: {}
 
 ## Topology spread constraints rely on node labels to identify the topology domain(s) that each Node is in.
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
-topologySpreadConstraints: []
+topologySpreadConstraints:
+  []
   # - maxSkew: 1
   #   topologyKey: failure-domain.beta.kubernetes.io/zone
   #   whenUnsatisfiable: DoNotSchedule
@@ -174,7 +178,8 @@ config:
 # Set custom config path, other than default /config/blackbox.yaml. If let empty, path will be "/config/blackbox.yaml"
 # configPath: "/foo/bar"
 
-extraConfigmapMounts: []
+extraConfigmapMounts:
+  []
   # - name: certs-configmap
   #   mountPath: /etc/secrets/ssl/
   #   subPath: certificates.crt # (optional)
@@ -184,14 +189,16 @@ extraConfigmapMounts: []
 
 ## Additional secret mounts
 # Defines additional mounts with secrets. Secrets must be manually created in the namespace.
-extraSecretMounts: []
+extraSecretMounts:
+  []
   # - name: secret-files
   #   mountPath: /etc/secrets
   #   secretName: blackbox-secret-files
   #   readOnly: true
   #   defaultMode: 420
 
-resources: {}
+resources:
+  {}
   # limits:
   #   memory: 300Mi
   # requests:
@@ -233,7 +240,8 @@ ingress:
   enabled: false
   className: ""
   labels: {}
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
@@ -267,7 +275,8 @@ hostAliases: []
 pod:
   labels: {}
 
-extraArgs: []
+extraArgs:
+  - --log.level=warn
   # - --history.limit=1000
 
 replicas: 1
@@ -388,7 +397,8 @@ dnsPolicy:
 dnsConfig:
 
 # Extra manifests to deploy as an array
-extraManifests: []
+extraManifests:
+  []
   # - apiVersion: v1
   #   kind: ConfigMap
   #   metadata:
@@ -479,4 +489,3 @@ configReloader:
       tlsConfig: {}
       interval: 30s
       scrapeTimeout: 30s
-
