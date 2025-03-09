@@ -5,6 +5,7 @@ kind/storage/*
 !kind/storage/.gitkeep
 avalanche/manifest/overlays/kustomization.yaml
 mailpit/manifest/overlays/kustomization.yaml
+prometheus/downsampling/overlays/kustomization.yaml
 victoriametrics/alerts/overlays/kustomization.yaml
 victoriametrics/manifest/overlays/kustomization.yaml
 victoriametrics/downsampling/overlays/kustomization.yaml

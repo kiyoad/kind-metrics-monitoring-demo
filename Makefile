@@ -141,11 +141,11 @@ vmcluster_stop:
 
 ## VMAgent
 
-downsample_start: vmoperator_start storage_start
-	@[ -f .downsample_running ] || ((cd victoriametrics/downsampling && bash -c ./apply.sh) && touch .downsample_running)
+downsample_start: namespace_start
+	@[ -f .downsample_running ] || ((cd prometheus/downsampling && bash -c ./apply.sh) && touch .downsample_running)
 
 downsample_stop:
-	@[ -f .downsample_running ] && (cd victoriametrics/downsampling && bash -c ./delete.sh) && rm -f .downsample_running || true
+	@[ -f .downsample_running ] && (cd prometheus/downsampling && bash -c ./delete.sh) && rm -f .downsample_running || true
 
 # Mailpit
 

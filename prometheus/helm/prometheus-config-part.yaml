@@ -24,7 +24,8 @@ server:
   image:
     tag: "v2.53.3"
   remoteWrite:
-    - url: http://vmauth-demo:8427/insert/0/prometheus
+    #- url: http://vmauth-demo:8427/insert/0/prometheus
+    - url: http://demo-nginx-downsampling:8888
   affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:

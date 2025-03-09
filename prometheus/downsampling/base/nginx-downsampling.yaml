@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-nginx-downsampling-config
+  namespace: default
+data:
+  nginx.conf: |
+    worker_processes 1;
+    events { worker_connections 512; }
+
+    http {
+        error_log  /dev/stdout warn;
+        access_log /dev/null   combined;
+
+        client_body_buffer_size 512k;
+        proxy_request_buffering off;
+
+        resolver kube-dns.kube-system.svc.cluster.local valid=10s;
+
+        upstream backend_servers {
+            random;
+            server unix:/var/run/nginx_backend_a.sock weight=9;
+            server unix:/var/run/nginx_backend_b.sock weight=1;
+        }
+
+        server {
+            listen 8888 default_server;
+            location / {
+                proxy_pass http://backend_servers;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-Host $host;
+                proxy_set_header X-Forwarded-Server $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_http_version 1.1;
+                proxy_set_header Connection "";
+            }
+        }
+
+        server {
+            listen unix:/var/run/nginx_backend_a.sock;
+            location / {
+                set $backend1 "http://vmauth-demo.default.svc.cluster.local:8427/insert/0/prometheus";
+                proxy_pass $backend1$request_uri;
+                proxy_http_version 1.1;
+                proxy_set_header Connection "";
+            }
+        }
+
+        server {
+            listen unix:/var/run/nginx_backend_b.sock;
+            location / {
+                set $backend1 "http://vmauth-demo.default.svc.cluster.local:8427/insert/0/prometheus";
+                proxy_pass $backend1$request_uri;
+                proxy_http_version 1.1;
+                proxy_set_header Connection "";
+                mirror /mirror;
+            }
+
+            location = /mirror {
+                internal;
+                set $backend2 "http://vmauth-demo.default.svc.cluster.local:8427/insert/1/prometheus";
+                proxy_pass $backend2$request_uri;
+                proxy_http_version 1.1;
+                proxy_set_header Connection "";
+            }
+        }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-nginx-downsampling
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-nginx-downsampling
+  template:
+    metadata:
+      labels:
+        app: demo-nginx-downsampling
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 8888
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: config-volume
+          configMap:
+            name: demo-nginx-downsampling-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-nginx-downsampling
+  namespace: default
+spec:
+  selector:
+    app: demo-nginx-downsampling
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 8888
