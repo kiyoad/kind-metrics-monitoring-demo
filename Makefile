@@ -51,6 +51,8 @@ avalanche-only_start: \
 	storage_start \
 	namespace_start \
 	vmoperator_start \
+	victorialogs_start \
+	fluent-bit_start \
 	vmalert_start \
 	vmcluster_start \
 	downsample_start \
@@ -66,6 +68,8 @@ avalanche-only_stop: \
 	downsample_stop \
 	vmcluster_stop \
 	vmalert_stop \
+	fluent-bit_stop \
+	victorialogs_stop \
 	vmoperator_stop \
 	namespace_stop \
 	storage_stop \
