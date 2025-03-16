@@ -19,7 +19,7 @@ data:
 
         upstream backend_servers {
             random;
-            server unix:/var/run/nginx_backend_a.sock weight=9;
+            server unix:/var/run/nginx_backend_a.sock weight=19;
             server unix:/var/run/nginx_backend_b.sock weight=1;
         }
 
