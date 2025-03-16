@@ -16,7 +16,7 @@ configmapReload:
       log-level: warn
       #log-format: json
     image:
-      tag: "v0.79.2"
+      tag: "v0.80.1"
 server:
   extraArgs:
     log.level: warn

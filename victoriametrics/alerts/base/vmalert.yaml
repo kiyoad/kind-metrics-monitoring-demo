@@ -11,7 +11,7 @@ metadata:
 spec:
   image:
     repository: prom/alertmanager
-    tag: v0.28.0
+    tag: v0.28.1
     pullPolicy: IfNotPresent
   replicaCount: 3
   affinity:
@@ -76,7 +76,7 @@ metadata:
 spec:
   image:
     repository: victoriametrics/vmalert
-    tag: v1.111.0
+    tag: v1.113.0
     pullPolicy: IfNotPresent
   replicaCount: 2
   affinity:
