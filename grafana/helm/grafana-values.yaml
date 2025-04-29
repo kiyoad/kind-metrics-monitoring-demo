@@ -6,6 +6,11 @@ image:
   repository: "grafana/grafana"
   tag: "11.6.1"
 
+downloadDashboardsImage:
+  registry: "docker.io"
+  repository: "curlimages/curl"
+  tag: "8.9.1"
+
 testFramework:
   enabled: false
 
