@@ -1,6 +1,11 @@
 adminUser: admin
 adminPassword: adminadmin
 
+image:
+  registry: "docker.io"
+  repository: "grafana/grafana"
+  tag: "11.6.1"
+
 testFramework:
   enabled: false
 
