@@ -12,9 +12,9 @@ fullnameOverride: ""
 namespaceOverride: ""
 
 image:
-  repository: quay.io/prometheus/pushgateway
+  repository: localhost:5001/prometheus/pushgateway
   # if not set appVersion field from Chart.yaml is used
-  tag: ""
+  tag: local
   pullPolicy: IfNotPresent
 
 # Optional pod imagePullSecrets

@@ -25,8 +25,8 @@ spec:
     replicaCount: 3
     storageDataPath: "/vm-data"
     image:
-      repository: victoriametrics/vmstorage
-      tag: v1.113.0-cluster
+      repository: localhost:5001/victoriametrics/vmstorage
+      tag: local
       pullPolicy: IfNotPresent
     affinity:
       podAntiAffinity:
@@ -71,8 +71,8 @@ spec:
             port: 8481
     replicaCount: 3
     image:
-      repository: victoriametrics/vmselect
-      tag: v1.113.0-cluster
+      repository: localhost:5001/victoriametrics/vmselect
+      tag: local
       pullPolicy: IfNotPresent
     cacheMountPath: "/select-cache"
     affinity:
@@ -111,8 +111,8 @@ spec:
             port: 8480
     replicaCount: 2
     image:
-      repository: victoriametrics/vminsert
-      tag: v1.113.0-cluster
+      repository: localhost:5001/victoriametrics/vminsert
+      tag: local
       pullPolicy: IfNotPresent
     affinity:
       podAntiAffinity:

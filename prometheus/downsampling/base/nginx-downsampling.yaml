@@ -84,7 +84,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:latest
+          image: localhost:5001/nginx:local
           ports:
             - containerPort: 8888
           volumeMounts:

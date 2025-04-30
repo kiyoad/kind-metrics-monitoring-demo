@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: mailpit-server
-          image: "axllent/mailpit:latest"
+          image: "localhost:5001/axllent/mailpit:local"
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 8025

@@ -10,9 +10,10 @@ metadata:
     prometheus.io/port: "9093"
 spec:
   image:
-    repository: prom/alertmanager
-    tag: v0.28.1
+    repository: localhost:5001/prom/alertmanager
+    tag: local
     pullPolicy: IfNotPresent
+  configReloaderImageTag: localhost:5001/jimmidyson/configmap-reload:local
   replicaCount: 3
   affinity:
     podAntiAffinity:
@@ -75,9 +76,10 @@ metadata:
     prometheus.io/scrape: "true"
 spec:
   image:
-    repository: victoriametrics/vmalert
-    tag: v1.113.0
+    repository: localhost:5001/victoriametrics/vmalert
+    tag: local
     pullPolicy: IfNotPresent
+  configReloaderImageTag: localhost:5001/jimmidyson/configmap-reload:local
   replicaCount: 2
   affinity:
     podAntiAffinity:

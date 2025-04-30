@@ -10,10 +10,10 @@ metadata:
 spec:
   replicaCount: 3
   selectAllByDefault: true
-  configReloaderImageTag: quay.io/prometheus-operator/prometheus-config-reloader:v0.80.1
+  configReloaderImageTag: localhost:5001/prometheus-operator/prometheus-config-reloader:local
   image:
-    repository: victoriametrics/vmauth
-    tag: v1.113.0
+    repository: localhost:5001/victoriametrics/vmauth
+    tag: local
     pullPolicy: IfNotPresent
   extraArgs:
     #loggerFormat: "json"

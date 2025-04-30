@@ -7,10 +7,10 @@ kind: DaemonSet
 replicaCount: 1
 
 image:
-  repository: cr.fluentbit.io/fluent/fluent-bit
+  repository: localhost:5001/fluent/fluent-bit
   # Overrides the image tag whose default is {{ .Chart.AppVersion }}
   # Set to "-" to not use the default value
-  tag: "3.2.10"
+  tag: "local"
   digest:
   pullPolicy: IfNotPresent
 
@@ -506,8 +506,8 @@ logLevel: warn
 hotReload:
   enabled: false
   image:
-    repository: ghcr.io/jimmidyson/configmap-reload
-    tag: v0.14.0
+    repository: localhost:5001/jimmidyson/configmap-reload
+    tag: local
     digest:
     pullPolicy: IfNotPresent
   resources: {}

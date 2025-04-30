@@ -2,14 +2,14 @@ adminUser: admin
 adminPassword: adminadmin
 
 image:
-  registry: "docker.io"
+  registry: "localhost:5001"
   repository: "grafana/grafana"
-  tag: "11.6.1"
+  tag: "local"
 
 downloadDashboardsImage:
-  registry: "docker.io"
+  registry: "localhost:5001"
   repository: "curlimages/curl"
-  tag: "8.9.1"
+  tag: "local"
 
 testFramework:
   enabled: false

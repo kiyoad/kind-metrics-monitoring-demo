@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 image:
-  registry: quay.io
+  registry: localhost:5001
   repository: prometheus/node-exporter
   # Overrides the image tag whose default is {{ printf "v%s" .Chart.AppVersion }}
   tag: ""
@@ -40,7 +40,8 @@ global:
 kubeRBACProxy:
   enabled: false
   ## Set environment variables as name/value pairs
-  env: {}
+  env:
+    {}
     # VARIABLE: value
   image:
     registry: quay.io
@@ -72,7 +73,8 @@ kubeRBACProxy:
   # Configure a hostPort. If true, hostPort will be enabled in the container and set to proxyEndpointsPort.
   enableProxyEndpointsHostPort: false
 
-  resources: {}
+  resources:
+    {}
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -265,7 +267,8 @@ updateStrategy:
   rollingUpdate:
     maxUnavailable: 1
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -402,7 +405,6 @@ terminationMessageParams:
   # If enabled, specify the policy for termination messages
   terminationMessagePolicy: File
 
-
 ## Assign a PriorityClassName to pods if set
 # priorityClassName: ""
 
@@ -513,14 +515,15 @@ verticalPodAutoscaler:
   # memory: 100Mi
 
   # updatePolicy:
-    # Specifies minimal number of replicas which need to be alive for VPA Updater to attempt pod eviction
-    # minReplicas: 1
-    # Specifies whether recommended updates are applied when a Pod is started and whether recommended updates
-    # are applied during the life of a Pod. Possible values are "Off", "Initial", "Recreate", and "Auto".
-    # updateMode: Auto
+  # Specifies minimal number of replicas which need to be alive for VPA Updater to attempt pod eviction
+  # minReplicas: 1
+  # Specifies whether recommended updates are applied when a Pod is started and whether recommended updates
+  # are applied during the life of a Pod. Possible values are "Off", "Initial", "Recreate", and "Auto".
+  # updateMode: Auto
 
 # Extra manifests to deploy as an array
-extraManifests: []
+extraManifests:
+  []
   # - |
   #   apiVersion: v1
   #   kind: ConfigMap
@@ -531,4 +534,3 @@ extraManifests: []
 
 # Override version of app, required if image.tag is defined and does not follow semver
 version: ""
-

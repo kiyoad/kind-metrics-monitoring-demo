@@ -104,10 +104,10 @@ strategy:
   type: RollingUpdate
 
 image:
-  registry: quay.io
+  registry: localhost:5001
   repository: prometheus/blackbox-exporter
   # Overrides the image tag whose default is {{ printf "v%s" .Chart.AppVersion }}
-  tag: ""
+  tag: local
   pullPolicy: IfNotPresent
   digest: ""
 

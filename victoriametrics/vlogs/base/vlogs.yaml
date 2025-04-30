@@ -20,8 +20,8 @@ spec:
           topologyKey: "kubernetes.io/hostname"
   futureRetention: "2d"
   image:
-    repository: victoriametrics/victoria-logs
-    tag: v1.17.0-victorialogs
+    repository: localhost:5001/victoriametrics/victoria-logs
+    tag: local
     pullPolicy: IfNotPresent
   logIngestedRows: false
   logNewStreams: false

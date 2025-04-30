@@ -10,6 +10,8 @@ if [ "$(docker inspect -f '{{.State.Running}}' "${reg_name}" 2>/dev/null || true
     registry:2
 fi
 
+./localreg-push.sh
+
 ./makepv.sh
 cat ./kindcontrolnode.yaml ./kindworkernode.yaml | kind create cluster --config -
 rm -f ./kindworkernode.yaml

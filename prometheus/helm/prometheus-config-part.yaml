@@ -16,13 +16,15 @@ configmapReload:
       log-level: warn
       #log-format: json
     image:
-      tag: "v0.80.1"
+      repository: localhost:5001/prometheus-operator/prometheus-config-reloader
+      tag: "local"
 server:
   extraArgs:
     log.level: warn
     #log.format: json
   image:
-    tag: "v2.53.3"
+    repository: localhost:5001/prometheus/prometheus
+    tag: "local"
   remoteWrite:
     #- url: http://vmauth-demo:8427/insert/0/prometheus
     - url: http://demo-nginx-downsampling:8888

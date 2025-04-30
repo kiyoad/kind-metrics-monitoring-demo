@@ -9,12 +9,12 @@ global:
 # Declare variables to be passed into your templates.
 image:
   # -- Image registry
-  registry: ""
+  registry: "localhost:5001"
   # -- Image repository
   repository: victoriametrics/operator
   # -- Image tag
   # override Chart.AppVersion
-  tag: ""
+  tag: "local"
   # Variant of the image to use.
   # e.g. scratch
   variant: ""
