@@ -36,18 +36,20 @@ spec:
     spec:
       containers:
         - name: avalanche
-          image: "quay.io/freshtracks.io/avalanche"
+          image: "localhost:5001/prometheuscommunity/avalanche:local"
           imagePullPolicy: "IfNotPresent"
           args:
-            - --metric-count=10
             - --label-count=1
-            - --series-count=5
+            - --series-count=1
             - --value-interval=3600
-            - --series-interval=7200
-            - --metric-interval=86400
+            - --series-interval=0
+            - --metric-interval=0
+            - --gauge-metric-count=1
+            - --counter-metric-count=0
+            - --histogram-metric-count=0
+            - --summary-metric-count=0
             - --port=9001
           ports:
             - containerPort: 9001
               protocol: TCP
               name: metrics
-
