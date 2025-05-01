@@ -5,6 +5,9 @@ usage:
 running:
 	@ls -ltra .*_running
 
+ready: kind_prepare_container_images
+	@echo "Obtained some container images to register in the local registry."
+
 start: \
 	kind_start \
 	storage_start \
@@ -101,6 +104,9 @@ kind_stop:
 kind_remove:
 	@(cd kind && bash -c ./stop.sh)
 	@(cd kind/storage && sudo rm -rf worker[1234])
+
+kind_prepare_container_images:
+	@(cd kind && bash -c ./docker-pull.sh)
 
 # storage
 
