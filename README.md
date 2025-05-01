@@ -54,6 +54,14 @@ List of ports for browser access
 * VMUI(VictoriaMetrics): `http://kindhost:8427/select/0/vmui/`
 * VMUI(VictoriaLogs): `http://kindhost:9428/select/vmui/`
 
+## Known issues
+
+* Too many open files
+  * kube-proxy or fluent-bit may not start due to the above error.
+  * Increasing the value of `fs.inotify.max_user_instances` in the following setting may solve the problem.
+    * `$ sudo sysctl fs.inotify.max_user_instances=1024`
+    * `$ sudo sysctl -p`
+
 ## License
 
 This project is licensed under the Apache-2.0 License - see the LICENSE file.
