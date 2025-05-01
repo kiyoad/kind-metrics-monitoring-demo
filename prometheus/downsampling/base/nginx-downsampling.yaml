@@ -91,6 +91,16 @@ spec:
             - name: config-volume
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - demo-nginx-downsampling
+              topologyKey: kubernetes.io/hostname
       volumes:
         - name: config-volume
           configMap:
