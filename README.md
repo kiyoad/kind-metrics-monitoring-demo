@@ -11,8 +11,8 @@ However, since it is a demo, it will be run on kind
 
 ### Dependencies
 
-* kind 0.24.0 or above (CPU >= 2core, Memory >= 8GB)
-  * kindest/node:v1.31.0 or above
+* kind 0.27.0 or above (CPU >= 2core, Memory >= 8GB)
+  * kindest/node:v1.32.2 or above
 * kubectl(+kustomize)
 * helm
 * bash,sed,head,base64,rm,curl,unzip,watch,git,GNU make
@@ -30,6 +30,9 @@ The namespace in the demo is `monitoring`.
 How to start it
 
 1. `$ cd kind-metrics-monitoring-demo`
+1. `$ make ready`
+   * Get some container images to register in the local registry (first time only).
+      * See the text file `kind/images.lst`
 1. `$ make start`
    1. Start kind ~~with Calico embedded in the prepared cluster settings~~.
    2. Prepare a PersistentVolume in the local file system.
@@ -53,7 +56,7 @@ List of ports for browser access
 
 ## License
 
-This project is licensed under the Apache-2.0 License - see the LICENSE file for details
+This project is licensed under the Apache-2.0 License - see the LICENSE file.
 
 ## Acknowledgments
 
