@@ -5,8 +5,8 @@ usage:
 running:
 	@ls -ltra .*_running
 
-ready: kind_prepare_container_images
-	@echo "Obtained some container images to register in the local registry."
+ready: kind_prepare
+	@echo "Obtained some container images to register in the local registry and update helm repos."
 
 start: \
 	kind_start \
@@ -105,8 +105,9 @@ kind_remove:
 	@(cd kind && bash -c ./stop.sh)
 	@(cd kind/storage && sudo rm -rf worker[1234])
 
-kind_prepare_container_images:
+kind_prepare:
 	@(cd kind && bash -c ./docker-pull.sh)
+	@(cd kind && bash -c ./helm-repo-add.sh)
 
 # storage
 
