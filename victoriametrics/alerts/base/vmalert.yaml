@@ -37,6 +37,8 @@ spec:
         accessModes:
           - ReadWriteOnce
         storageClassName: local-storage2
+  securityContext:
+    fsGroup: 65534
   dnsConfig:
     searches:
       - default.svc.cluster.local
