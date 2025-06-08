@@ -1,12 +1,14 @@
-apiVersion: operator.victoriametrics.com/v1beta1
-kind: VLogs
+apiVersion: operator.victoriametrics.com/v1
+kind: VLSingle
 metadata:
   name: demo-vlogs
   namespace: default
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "9428"
+  # 2025-06-07 18:10 It is not recognized even if annotations: is written here.
 spec:
+  podMetadata:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9428"
   logLevel: "WARN"
   affinity:
     podAntiAffinity:
@@ -16,7 +18,7 @@ spec:
               - key: "app.kubernetes.io/name"
                 operator: In
                 values:
-                  - "vlogs"
+                  - "vlsingle"
           topologyKey: "kubernetes.io/hostname"
   futureRetention: "2d"
   image:
@@ -25,7 +27,6 @@ spec:
     pullPolicy: IfNotPresent
   logIngestedRows: false
   logNewStreams: false
-  removePvcAfterDelete: true
   replicaCount: 1
   retentionPeriod: "7d"
   resources:
@@ -47,7 +48,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: vlogs-demo-nodeport
+  name: vlsingle-demo-nodeport
   namespace: default
 spec:
   ports:
@@ -59,6 +60,6 @@ spec:
   selector:
     app.kubernetes.io/component: monitoring
     app.kubernetes.io/instance: demo-vlogs
-    app.kubernetes.io/name: vlogs
+    app.kubernetes.io/name: vlsingle
   sessionAffinity: None
   type: "NodePort"
