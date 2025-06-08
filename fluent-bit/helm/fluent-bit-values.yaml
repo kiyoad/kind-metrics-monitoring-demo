@@ -416,7 +416,7 @@ config:
     [OUTPUT]
         Name http
         Match *
-        host vlogs-demo-vlogs.default.svc.cluster.local
+        host vlsingle-demo-vlogs.default.svc.cluster.local
         port 9428
         uri /insert/jsonline?_stream_fields=kubernetes.container_name,kubernetes.host,kubernetes.namespace_name,kubernetes.pod_ip,kubernetes.pod_name&_msg_field=log&_time_field=date
         format json_lines
