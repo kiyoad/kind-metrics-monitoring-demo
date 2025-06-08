@@ -16,3 +16,11 @@ debug/tcpdump/httpdump/capture.pcap
 debug/tcpdump/httpdump/httpdump_v*
 debug/tcpdump/socatdump/capture.pcap
 debug/tcpdump/socatdump/socatdump_v*
+fluent-bit/helm/values.yaml
+grafana/helm/values.yaml
+kube-state-metrics/helm/values.yaml
+prometheus-blackbox-exporter/helm/values.yaml
+prometheus-node-exporter/helm/values.yaml
+prometheus-pushgateway/helm/values.yaml
+prometheus/helm/values.yaml
+victoriametrics/operator-helm/values.yaml
