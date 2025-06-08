@@ -10,7 +10,7 @@ image:
   repository: localhost:5001/fluent/fluent-bit
   # Overrides the image tag whose default is {{ .Chart.AppVersion }}
   # Set to "-" to not use the default value
-  tag: "local"
+  tag: local
   digest:
   pullPolicy: IfNotPresent
 
@@ -371,6 +371,7 @@ networkPolicy:
 #   ingress:
 #     from: []
 
+# See Lua script configuration example in README.md
 luaScripts: {}
 
 ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/configuration-file
