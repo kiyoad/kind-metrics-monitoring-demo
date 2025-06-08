@@ -3,9 +3,15 @@ set -euo pipefail
 
 FILE="images.lst"
 
-while IFS= read -r LINE; do
-  read LOCALTAG REMOTEIMG <<<"${LINE}"
-  IFS='/' read REMOTEREG ORGANIZATION REPO <<<"${REMOTEIMG}"
+while IFS= read -r MIXLINE; do
+  LINE="${MIXLINE%%#*}"
+  if [[ -z ${LINE} ]]; then
+    continue
+  fi
+  #echo LINE: ${LINE}
+  read LOCALTAG REMOTENAMETAG CHARTVERSION <<<"${LINE}"
+  #echo LOCALTAG: ${LOCALTAG} REMOTENAMETAG: ${REMOTENAMETAG} CHARTVERSION: ${CHARTVERSION}
+  IFS='/' read REMOTEREG ORGANIZATION REPO <<<"${REMOTENAMETAG}"
   if [[ -z ${REPO} ]]; then
     IFS=':' read REPONAME REPOTAG <<<"${ORGANIZATION}"
     LOCALIMG=localhost:5001/${REPONAME}:${LOCALTAG}
@@ -13,12 +19,8 @@ while IFS= read -r LINE; do
     IFS=':' read REPONAME REPOTAG <<<"${REPO}"
     LOCALIMG=localhost:5001/${ORGANIZATION}/${REPONAME}:${LOCALTAG}
   fi
-  #echo LINE: ${LINE}
-  #echo REMOTEREG: ${REMOTEREG}
-  #echo ORGANIZATION: ${ORGANIZATION}
-  #echo REPONAME: ${REPONAME}
-  #echo REPOTAG: ${REPOTAG}
-  docker tag ${REMOTEIMG} ${LOCALIMG}
+  #echo LOCALIMG: ${LOCALIMG}
+  docker tag ${REMOTENAMETAG} ${LOCALIMG}
   docker push ${LOCALIMG}
   docker image rm ${LOCALIMG}
 done <"${FILE}"
