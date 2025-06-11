@@ -56,11 +56,14 @@ List of ports for browser access
 
 ## Known issues
 
-* Too many open files
+* Too Many Open Files
   * kube-proxy or fluent-bit may not start due to the above error.
   * Increasing the value of `fs.inotify.max_user_instances` in the following setting may solve the problem.
     * `$ sudo sysctl fs.inotify.max_user_instances=1024`
     * `$ sudo sysctl -p`
+* Running Inside a Proxy Environment
+  * To run the demo in an environment that requires a proxy, add the following to the NO_PROXY (or no_proxy) environment variable:
+    * `kind-registry`
 
 ## License
 
