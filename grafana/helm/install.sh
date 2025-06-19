@@ -1,4 +1,6 @@
 #!/bin/bash
 set -euxo pipefail
-helm show values --version $(../../kind/get-chart-ver.sh grafana/grafana) --namespace $(../../namespace/get.sh) grafana/grafana >values.yaml
-helm template --version $(../../kind/get-chart-ver.sh grafana/grafana) --namespace $(../../namespace/get.sh) demo grafana/grafana -f config.yaml | kubectl apply -f -
+VERSION=$(../../kind/get-chart-ver.sh grafana/grafana)
+NAMESPACE=$(../../namespace/get.sh)
+helm show values --version ${VERSION} --namespace ${NAMESPACE} grafana/grafana >values_${VERSION//./_}.yaml
+helm template --version ${VERSION} --namespace ${NAMESPACE} demo grafana/grafana -f config.yaml | kubectl apply -f -
